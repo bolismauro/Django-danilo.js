@@ -9,10 +9,10 @@ html
 
         h1 Demo app
 
-        form(data-bind="try_login", onsubmit="return false;")
+        form(data-bind="try_login")
             p This is a sample form. When you submit it a form/submit/try_login event will be fired
             p
-                input(type="text", value="demo")
+                input(type="text", value="demo", name="username")
             p
                 input(type="submit", value="Click me!")
 

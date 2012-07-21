@@ -4,7 +4,7 @@ require ["danilo"], (danilo) ->
     danilo.router()
     
     # Defining models
-    class User
+    class User extends danilo.Model
         url = '/user/'
 
         username = ''
@@ -13,7 +13,7 @@ require ["danilo"], (danilo) ->
         validate_username = (username) ->
             return username.length > 3
 
-    class Document
+    class Document extends danilo.Model
         url = '/document/'
 
         title = 'Untitled'
@@ -27,9 +27,9 @@ require ["danilo"], (danilo) ->
 
 
     user_login = new danilo.Operation
-        receives: ['form/submit/try_login']
-    , (sender) ->
-        console.log sender
+        receive: ['form/submit/try_login']
+    , (data) ->
+        console.log 'got data', data
         alert 'triggered event'
 
 
