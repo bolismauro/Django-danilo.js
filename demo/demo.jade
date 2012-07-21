@@ -1,0 +1,43 @@
+doctype 5
+html
+    head
+        title danilo.js demo application
+        meta(charset="UTF-8")
+        link(rel="stylesheet", href="style.css")
+
+    body
+
+        h1 Demo app
+
+        form(data-bind="try_login", onsubmit="return false;")
+            p This is a sample form. When you submit it a form/submit/try_login event will be fired
+            p
+                input(type="text", value="demo")
+            p
+                input(type="submit", value="Click me!")
+
+        script(type="text/javascript", src="../libs/promise.js")
+        script(type="text/javascript", src="../libs/pubsub.js")
+        script(type="text/javascript", src="../libs/require.js", data-main="demo.js")
+
+        :coffeescript
+            require.config
+                baseUrl: '/src/'
+                paths:
+                    danilo: "../src/danilo"
+                    handlebars: "../libs/handlebars"
+                    pubsub: "../libs/pubsub"
+                    promise: "../libs/promise"
+                    superagent: "../libs/superagent"
+
+                # some vendor libs does not export for require
+                shim:
+                    handlebars:
+                        exports: 'Handlebars'
+                    promise: 
+                        exports: 'promise'
+                    superagent:
+                        exports: 'superagent'
+
+    
+
