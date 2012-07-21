@@ -1,6 +1,6 @@
 
 all:
-	coffee -c router.coffee
-	uglifyjs router.js > router.min.js
+	coffee -c danilo.coffee
+	uglifyjs danilo.js > danilo.min.js
 
 
