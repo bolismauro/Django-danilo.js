@@ -1,11 +1,4 @@
-
 ## Status ##
-Very early alpha
+danilo.js is currently in an early development status, so ``don't use it!``.
 
-## RouterJS ##
-RouterJS is a lightweight, dependencies-free, client-side MVC (Model-View-Template, really) library for your web applications.
-
-## Contribute ##
-    git clone https://github.com/lusentis/RouterJS.git
-    npm -g install coffee-script uglify-js
-    make
+MOVE pattern introduction: http://cirw.in/blog/time-to-move-on
