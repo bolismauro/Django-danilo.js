@@ -7,12 +7,11 @@ define ['pubsub', 'promise', 'superagent'], (PubSub, Promise, request_is_not_req
         constructor: (options, handler) ->
             if options.receive? and options.receive?.length > 0
                 for ev in options.receive
-                    PubSub.subscribe ev, handler
-
-        @trigger: (eventName, params) ->
-            PubSub.publish "custom/#{eventName}", params
+                    @subscription = PubSub.subscribe ev, handler
 
 
+        remove: () ->
+            PubSub.unsubscribe @subscription
 
         # Operation helpers
         get = (Model, _id) ->
@@ -72,6 +71,9 @@ define ['pubsub', 'promise', 'superagent'], (PubSub, Promise, request_is_not_req
                     else
                         p.done 'Delete Error', res.body
 
+
+        @trigger: (eventName, params) ->
+            PubSub.publish "custom/#{eventName}", params
 
 
 
