@@ -6,30 +6,44 @@ require ["danilo"], (danilo) ->
     # Defining models
     class User extends danilo.Model
         url = '/user/'
+        validation =
+            'username': (username) ->
+                return username.length > 3
 
-        username = ''
-        password = ''
+        attrs = 
+            username: ''
+            password: ''
 
         validate_username = (username) ->
             return username.length > 3
 
+
     class Document extends danilo.Model
         url = '/document/'
 
-        title = 'Untitled'
-        pub = false
+        attrs = 
+            title: 'Untitled'
+            pub: false
 
         get_title = ->
-            return @title
+            return @attrs.title
 
         is_public = ->
-            return @pub
+            return @attrs.pub
+
+
+    validate_login_form = new danilo.Operation
+        receive: ['form/change/try_login']
+    , (data) ->
+        console.log 'form is being validated...'
+        console.log 'you have changed ', data.input, 'value, inside form', data.form
+        data.form.setAttribute 'data-valid', 'true'
 
 
     user_login = new danilo.Operation
         receive: ['form/submit/try_login']
     , (data) ->
-        console.log 'got data', data
+        console.log 'got data', data.attrs
         alert 'triggered event'
 
 
