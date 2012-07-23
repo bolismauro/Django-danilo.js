@@ -9,6 +9,10 @@ define ['pubsub', 'promise', 'superagent'], (PubSub, Promise, request_is_not_req
                 for ev in options.receive
                     PubSub.subscribe ev, handler
 
+        @trigger: (eventName) ->
+            #console.log this
+            PubSub.publish "custom/#{eventName}", this
+
 
 
         # Operation helpers

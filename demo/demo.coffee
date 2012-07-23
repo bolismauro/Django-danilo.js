@@ -47,3 +47,13 @@ require ["danilo"], (danilo) ->
         alert 'triggered event'
 
 
+    #attach custom event
+    document.getElementById('custom-event-button').onclick = () ->
+        danilo.Operation.trigger 'test_button_pressed'
+
+    #and manage it
+    custom_event = new danilo.Operation
+        receive: ['custom/test_button_pressed']
+    , (data) ->
+        console.log data
+
