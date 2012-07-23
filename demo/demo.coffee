@@ -48,12 +48,12 @@ require ["danilo"], (danilo) ->
 
 
     #attach custom event
-    document.getElementById('custom-event-button').onclick = () ->
-        danilo.Operation.trigger 'test_button_pressed'
+    document.getElementById('custom-event-button').onclick = (e) ->
+        danilo.Operation.trigger 'test_button_pressed', e.target
 
     #and manage it
     custom_event = new danilo.Operation
         receive: ['custom/test_button_pressed']
     , (data) ->
-        console.log data
+        alert "Custom event triggered from button with id: '#{data.id}'"
 
