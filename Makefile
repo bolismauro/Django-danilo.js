@@ -1,6 +1,7 @@
 
 all:
-	coffee -c danilo.coffee
-	uglifyjs danilo.js > danilo.min.js
+	coffee -c .
+	jade demo/demo.jade
+	#uglifyjs danilo.js > danilo.min.js
 
 
