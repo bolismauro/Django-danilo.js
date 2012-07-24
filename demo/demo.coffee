@@ -11,8 +11,10 @@ require ["danilo"], (danilo) ->
                 return username.length > 3
 
         attrs:
-            username: 'pino'
-            password: 'giano'
+            username: 
+                defaultValue : 'username'
+            password: 
+                defaultValue : 'password'
 
 
     class Document extends danilo.Model
@@ -30,20 +32,19 @@ require ["danilo"], (danilo) ->
 
 
 
-    pippo = new User()
+    pippo = new User username: 'Pippo'
     console.log pippo
-    console.log pippo.attrs
     console.log 'setting pippo abc'
-    pippo.attr('abc', '123')
-    console.log 'value of abc is', pippo.attr('abc')
+    pippo.set('abc', '123')
+    console.log 'value of abc is', pippo.get('abc')
 
 
     pluto = new User()
     console.log pluto
     console.log 'setting pluto abc'
-    pluto.attr('abc', '789')
-    console.log 'value of pluto abc is', pluto.attr('abc')
-    console.log 'value of pippo abc is', pippo.attr('abc')
+    pluto.set('abc', '789')
+    console.log 'value of pluto abc is', pluto.get('abc')
+    console.log 'value of pippo abc is', pippo.get('abc')
 
 
 

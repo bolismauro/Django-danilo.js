@@ -3,20 +3,22 @@
 define ['pubsub', 'promise'], (PubSub, Promise) ->
 
     class Model
-        constructor: ->
-            console.log 'validate in model constructor is equal to', @validate
-            console.log 'default value for username is', @attrs.username
+        constructor: (values) ->
             
-            # defining method .attr
-            ###@attr = (name, value) =>
-                console.log 'this',@
-                console.log 'validate',@
-                if value?
-                    @attrs.name = value
-                else
-                    return @attrs.name###
+            @attributeValues = []
 
+            for attr, attrInfo of @attrs
+                #FIX ME, ugly code
+                @attributeValues[attr] = ''
+                @attributeValues[attr] = attrInfo.defaultValue if attrInfo?.defaultValue?
+                @attributeValues[attr] = values[attr] if values?[attr]?
 
         update: (attrs) ->
             for k, v of attrs
-                @attrs[k] = v
+                @attributeValues[k] = v
+
+        get: (attribute) ->
+            @attributeValues[attribute]
+
+        set: (attribute, value) ->
+            @attributeValues[attribute] = value
