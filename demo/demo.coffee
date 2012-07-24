@@ -5,31 +5,46 @@ require ["danilo"], (danilo) ->
     
     # Defining models
     class User extends danilo.Model
-        url = '/user/'
-        validation =
+        url: '/user/'
+        validate:
             'username': (username) ->
                 return username.length > 3
 
-        attrs = 
-            username: ''
-            password: ''
-
-        validate_username = (username) ->
-            return username.length > 3
+        attrs:
+            username: 'pino'
+            password: 'giano'
 
 
     class Document extends danilo.Model
-        url = '/document/'
+        url: '/document/'
 
-        attrs = 
+        attrs: 
             title: 'Untitled'
             pub: false
 
-        get_title = ->
+        get_title: ->
             return @attrs.title
 
-        is_public = ->
+        is_public: ->
             return @attrs.pub
+
+
+
+    pippo = new User()
+    console.log pippo
+    console.log pippo.attrs
+    console.log 'setting pippo abc'
+    pippo.attr('abc', '123')
+    console.log 'value of abc is', pippo.attr('abc')
+
+
+    pluto = new User()
+    console.log pluto
+    console.log 'setting pluto abc'
+    pluto.attr('abc', '789')
+    console.log 'value of pluto abc is', pluto.attr('abc')
+    console.log 'value of pippo abc is', pippo.attr('abc')
+
 
 
     # Defining event-triggered operations

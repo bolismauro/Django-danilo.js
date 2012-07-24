@@ -3,17 +3,20 @@
 define ['pubsub', 'promise'], (PubSub, Promise) ->
 
     class Model
-        attrs = {}
+        constructor: ->
+            console.log 'validate in model constructor is equal to', @validate
+            console.log 'default value for username is', @attrs.username
+            
+            # defining method .attr
+            ###@attr = (name, value) =>
+                console.log 'this',@
+                console.log 'validate',@
+                if value?
+                    @attrs.name = value
+                else
+                    return @attrs.name###
 
 
-    # ?????
-    #Model::renderTo = (to_element, template) ->
-    #    to_element.innerHTML = render_template template, @attrs
-
-    Model::update = (attrs) ->
-        for k, v of attrs
-            @attrs[k] = v
-
-    return Model
-
-
+        update: (attrs) ->
+            for k, v of attrs
+                @attrs[k] = v
