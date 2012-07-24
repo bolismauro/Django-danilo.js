@@ -21,8 +21,10 @@ require ["danilo"], (danilo) ->
         url: '/document/'
 
         attrs: 
-            title: 'Untitled'
-            pub: false
+            title: 
+                defaultValue : 'Untitled'
+            pub: 
+                defaultValue : bfalse
 
         get_title: ->
             return @attrs.title
