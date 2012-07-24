@@ -37,7 +37,7 @@ require ["danilo"], (danilo) ->
     console.log 'setting pippo abc'
     pippo.set('abc', '123')
     console.log 'value of abc is', pippo.get('abc')
-
+    console.log 'pippo username is ', pippo.get('username')
 
     pluto = new User()
     console.log pluto
@@ -45,6 +45,7 @@ require ["danilo"], (danilo) ->
     pluto.set('abc', '789')
     console.log 'value of pluto abc is', pluto.get('abc')
     console.log 'value of pippo abc is', pippo.get('abc')
+    console.log 'pluto username is ', pluto.get('username')
 
 
 
