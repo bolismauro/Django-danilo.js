@@ -3,7 +3,6 @@
 define ['promise', 'superagent'], (Promise, request_is_not_requirejs_compatible) ->
 
     class Remote
-        # Operation helpers
         get: (Model, _id) ->
             p = new promise.Promise()
             
@@ -20,16 +19,16 @@ define ['promise', 'superagent'], (Promise, request_is_not_requirejs_compatible)
             return p
 
 
-        save: (Model, _id) ->
+        save: (obj, _id) ->
             p = new promise.Promise()
 
-            if not _id and Model.attrs._id
-                _id = Model.attrs._id
+            if not _id and obj.attrs._id
+                _id = obj.attrs._id
 
             if _id  # Update (PUT)
                 request
-                    .put(Model.url + _id||'')
-                    .send(Model.attrs)
+                    .put(obj.url + _id||'')
+                    .send(obj.attrs)
                     .end (res) ->
                         if res.ok
                             p.done null, 'Created'
@@ -37,8 +36,8 @@ define ['promise', 'superagent'], (Promise, request_is_not_requirejs_compatible)
                             p.done 'Save Error', res.body
             else    # Create (POST)
                 request
-                    .post(Model.url)
-                    .send(Model.attrs)
+                    .post(obj.url)
+                    .send(obj.attrs)
                     .end (res) ->
                         if res.ok
                             p.done null, 'Updated'
@@ -47,14 +46,14 @@ define ['promise', 'superagent'], (Promise, request_is_not_requirejs_compatible)
             return p
 
 
-        del: (Model, _id) ->
+        del: (obj, _id) ->
             p = new promise.Promise()
 
-            if not _id and Model.attrs._id
-                _id = Model.attrs._id
+            if not _id and obj.attrs._id
+                _id = obj.attrs._id
 
             request
-                .del(Model.url + _id||'')
+                .del(obj.url + _id||'')
                 .end (res) ->
                     if res.ok
                         p.done null, 'Deleted'
