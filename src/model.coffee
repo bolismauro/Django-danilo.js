@@ -29,6 +29,10 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
             for validationType, validationValue of attribute
                 if validationType isnt 'defaultValue'
                     res = Validation[validationType](@attributeValues[attrName], validationValue)
+
+                    # TODO: fix this.
+                    # In accord to MOVE pattern this function should generate an event.
+                    # But intercepted by who? With what name? 
                     if not res
                         console.log "validation #{validationType} not passed by #{@attributeValues[attrName]}"
                 
