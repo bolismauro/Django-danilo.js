@@ -6,13 +6,12 @@ require ["danilo"], (danilo) ->
     # Defining models
     class User extends danilo.Model
         url: '/user/'
-        validate:
-            'username': (username) ->
-                return username.length > 3
 
         attrs:
             username: 
                 defaultValue : 'username'
+                minLength: 6
+                maxLength: 7
             password: 
                 defaultValue : 'password'
 
@@ -24,7 +23,7 @@ require ["danilo"], (danilo) ->
             title: 
                 defaultValue : 'Untitled'
             pub: 
-                defaultValue : bfalse
+                defaultValue : false
 
         get_title: ->
             return @attrs.title
@@ -40,6 +39,7 @@ require ["danilo"], (danilo) ->
     pippo.set('abc', '123')
     console.log 'value of abc is', pippo.get('abc')
     console.log 'pippo username is ', pippo.get('username')
+    pippo.validate 'username'
 
     pluto = new User()
     console.log pluto
@@ -48,8 +48,7 @@ require ["danilo"], (danilo) ->
     console.log 'value of pluto abc is', pluto.get('abc')
     console.log 'value of pippo abc is', pippo.get('abc')
     console.log 'pluto username is ', pluto.get('username')
-
-
+    pluto.validate 'username'
 
     # Defining event-triggered operations
     validate_login_form = new danilo.Operation

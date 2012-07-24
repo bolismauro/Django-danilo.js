@@ -1,6 +1,6 @@
 "use strict"
 
-define ['pubsub', 'promise'], (PubSub, Promise) ->
+define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
 
     class Model
         constructor: (values) ->
@@ -22,3 +22,13 @@ define ['pubsub', 'promise'], (PubSub, Promise) ->
 
         set: (attribute, value) ->
             @attributeValues[attribute] = value
+
+
+        validate: (attrName) ->
+            attribute = @attrs[attrName]
+            for validationType, validationValue of attribute
+                if validationType isnt 'defaultValue'
+                    res = Validation[validationType](@attributeValues[attrName], validationValue)
+                    if not res
+                        console.log "validation #{validationType} not passed by #{@attributeValues[attrName]}"
+                
