@@ -34,10 +34,23 @@ define ['pubsub'], (PubSub) ->
                     else
                         attrs[item.getAttribute('name')] = item.value
 
-            PubSub.publish "form/submit/#{form_tag.getAttribute('data-bind')}", attrs
+            PubSub.publish "form/submit/#{form_tag.getAttribute('data-bind')}", {form: form_tag, attrs: attrs}
 
             e.preventDefault()
-            return false    
+            return false
+
+
+    _formchange_add_handlers = (form_tag) ->
+        for item in form_tag.getElementsByTagName('input')
+            if item.getAttribute('data-skip') isnt 'true'
+                if item.getAttribute('name')
+                    item.onchange = ((item)->
+                        return ->
+                            PubSub.publish "form/change/#{form_tag.getAttribute('data-bind')}", {form: form_tag, input: item}
+                    )(item)
+        return
+
+
 
     # Updates all <a href=""> tags that points to local /-relative
     # paths. This links will be handled by the Router.
@@ -52,8 +65,8 @@ define ['pubsub'], (PubSub) ->
                 item.onclick = _aclick_factory(real_href, item.onclick)
 
         for item in document.querySelectorAll('form[data-bind]')
-            console.log 'binding form submit',item.getAttribute('data-bind')
             item.onsubmit = _formsubmit_factory(item)
+            _formchange_add_handlers(item)
 
 
     # Router initialization

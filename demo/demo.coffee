@@ -32,6 +32,7 @@ require ["danilo"], (danilo) ->
             return @attrs.pub
 
 
+    # Defining event-triggered operations
     validate_login_form = new danilo.Operation
         receive: ['form/change/try_login']
     , (data) ->
@@ -47,11 +48,11 @@ require ["danilo"], (danilo) ->
         alert 'triggered event'
 
 
-    #attach custom event
+
+    ## Custom Event DEMO ##
     document.getElementById('custom-event-button').onclick = (e) ->
         danilo.Operation.trigger 'test_button_pressed', e.target
 
-    #and manage it
     custom_event = new danilo.Operation
         receive: ['custom/test_button_pressed']
     , (data) ->
