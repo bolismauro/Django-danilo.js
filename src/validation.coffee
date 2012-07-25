@@ -17,14 +17,25 @@
 			custom_validator : (attrValue) ->
 									return --complex operations--
 
+
+	Currently second method is implemented
+
 """
 
 define [], () ->
 
     class Validation
+        
+        @validate: (validationName, validationParam, attributeValue) ->
+        	if typeof validationParam is "function"
+        		validationParam(attributeValue)
+        	else
+        		@[validationName] attributeValue, validationParam
+        
+
 
         @minLength: (attributeValue, lenght) ->
         	return attributeValue.length >= lenght         
 
         @maxLength: (attributeValue, lenght) ->
-        	return attributeValue.length <= lenght    
+        	return attributeValue.length <= lenght

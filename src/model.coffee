@@ -16,7 +16,7 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
                 else
                     #complex attr
                     @attributeValues[attr] = ''
-                    @attributeValues[attr] = attrInfo.defaultValue if attrInfo?.defaultValue?
+                    @attributeValues[attr] = attrInfo.defaultValue if attrInfo.defaultValue?
                 
                 @attributeValues[attr] = values[attr] if values?[attr]?
 
@@ -33,13 +33,13 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
 
         validate: (attrName) ->
             attribute = @attrs[attrName]
-            for validationType, validationValue of attribute
-                if validationType isnt 'defaultValue'
-                    res = Validation[validationType](@attributeValues[attrName], validationValue)
+            for validationName, validationParam of attribute
+                if validationName isnt 'defaultValue'
+                    res = Validation.validate validationName, validationParam, @attributeValues[attrName]
 
                     # TODO: fix this.
                     # In accord to MOVE pattern this function should generate an event.
                     # But intercepted by who? With what name? 
                     if not res
-                        console.log "validation #{validationType} not passed by #{@attributeValues[attrName]}"
+                        console.log "validation #{validationName} not passed by #{@attributeValues[attrName]}"
                 

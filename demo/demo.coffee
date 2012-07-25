@@ -12,6 +12,9 @@ require ["danilo"], (danilo) ->
                 defaultValue : 'username'
                 minLength: 6
                 maxLength: 7
+                firstLetterCapital : (attributeValue) ->
+                    return attributeValue[0].toUpperCase() == attributeValue[0]
+
             password: 'password'
 
 
