@@ -12,8 +12,7 @@ require ["danilo"], (danilo) ->
                 defaultValue : 'username'
                 minLength: 6
                 maxLength: 7
-            password: 
-                defaultValue : 'password'
+            password: 'password'
 
 
     class Document extends danilo.Model
@@ -39,15 +38,17 @@ require ["danilo"], (danilo) ->
     pippo.set('abc', '123')
     console.log 'value of abc is', pippo.get('abc')
     console.log 'pippo username is ', pippo.get('username')
+    console.log 'pippo password is ', pippo.get('password')
     pippo.validate 'username'
 
-    pluto = new User()
+    pluto = new User password: 'custom_password'
     console.log pluto
     console.log 'setting pluto abc'
     pluto.set('abc', '789')
     console.log 'value of pluto abc is', pluto.get('abc')
     console.log 'value of pippo abc is', pippo.get('abc')
     console.log 'pluto username is ', pluto.get('username')
+    console.log 'pluto password is ', pluto.get('password')
     pluto.validate 'username'
 
     # Defining event-triggered operations

@@ -8,9 +8,16 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
             @attributeValues = []
 
             for attr, attrInfo of @attrs
+                
                 #FIX ME, ugly code
-                @attributeValues[attr] = ''
-                @attributeValues[attr] = attrInfo.defaultValue if attrInfo?.defaultValue?
+                if typeof attrInfo isnt "object"
+                    #fast init
+                    @attributeValues[attr] = attrInfo
+                else
+                    #complex attr
+                    @attributeValues[attr] = ''
+                    @attributeValues[attr] = attrInfo.defaultValue if attrInfo?.defaultValue?
+                
                 @attributeValues[attr] = values[attr] if values?[attr]?
 
         update: (attrs) ->
