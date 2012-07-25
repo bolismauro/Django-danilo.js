@@ -37,9 +37,19 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
                 if validationName isnt 'defaultValue'
                     res = Validation.validate validationName, validationParam, @attributeValues[attrName]
 
-                    # TODO: fix this.
-                    # In accord to MOVE pattern this function should generate an event.
-                    # But intercepted by who? With what name? 
                     if not res
-                        console.log "validation #{validationName} not passed by #{@attributeValues[attrName]}"
+                        modelName = getObjectClass @
+                        data = {}
+                        data.modelName = modelName
+                        data.modelInstance = @
+                        data.attribute = attrName
+                        data.validationName = validationName
+                        PubSub.publish "error/#{modelName}", data
+                        
+        # TODO: Move this function?
+        getObjectClass = (obj) ->
+            if obj and obj.constructor and obj.constructor.toString
+                arr = obj.constructor.toString().match(/function\s*(\w+)/)
+                return arr[1]  if arr and arr.length is 2
+            "undefined"
                 
