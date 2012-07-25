@@ -1,6 +1,6 @@
 "use strict"
 
-define ['./router', './model', './operation' , './remote', 'handlebars'], (router, Model, Operation, Remote, Handlebars) ->
+define ['./router', './model', './operation' , './operationError', './remote', 'handlebars'], (router, Model, Operation, OperationError, Remote, Handlebars) ->
 
     render_template = (template, ctx) ->
         ctx = {} unless ctx?
@@ -12,5 +12,6 @@ define ['./router', './model', './operation' , './remote', 'handlebars'], (route
 
         Model: Model
         Operation: Operation
+        OperationError: OperationError
         Remote: Remote
     }
