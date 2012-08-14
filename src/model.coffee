@@ -4,7 +4,6 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
 
     class Model
         constructor: (values) ->
-            
             @attributeValues = []
 
             for attr, attrInfo of @attrs
@@ -30,6 +29,8 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
         set: (attribute, value) ->
             if @autoValidate
                 if @validate attribute, value
+                    @attributeValues[attribute] = value
+            else
                     @attributeValues[attribute] = value
 
         validate: (attributeName, attributeValue) ->
