@@ -63,7 +63,7 @@ require ["danilo"], (danilo) ->
     new danilo.Operation
         receive: ['validationError User']
     , (data) ->
-        console.log "Error. The attribute #{data.attribute} violates the validator #{data.validationName} (value #{data.modelInstance.get(data.attribute)})"
+        console.log "Validation Error: the attribute #{data.attribute} violates the validator #{data.validationName}."
 
 
     pippo = new User username: 'Pippo'
@@ -80,7 +80,7 @@ require ["danilo"], (danilo) ->
     pluto.set 'username', 'this is illegal (not capitalized)'
     console.log 'pluto username is now', pluto.get 'username'
 
-    pluto.set 'username', 'Short'
+    pluto.set 'username', 'Shrt'
     console.log 'pluto username is now', pluto.get 'username'
 
 
