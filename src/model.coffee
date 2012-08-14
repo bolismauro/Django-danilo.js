@@ -28,24 +28,28 @@ define ['pubsub', 'promise', 'validation'], (PubSub, Promise, Validation) ->
             @attributeValues[attribute]
 
         set: (attribute, value) ->
-            @attributeValues[attribute] = value
+            if @autoValidate
+                if @validate attribute, value
+                    @attributeValues[attribute] = value
 
+        validate: (attributeName, attributeValue) ->
+            if not attributeValue?
+                attributeValue = @attributeValues[attribute]
 
-        validate: (attrName) ->
-            attribute = @attrs[attrName]
-            for validationName, validationParam of attribute
-                if validationName isnt 'defaultValue'
-                    res = Validation.validate validationName, validationParam, @attributeValues[attrName]
+            attribute = @attrs[attributeName]
+            for validationName, validationParam of attribute.validators
+                if not Validation.validate validationName, validationParam, attributeValue
+                    modelName = getObjectClass @
+                    PubSub.publish "validationError #{modelName}", 
+                        modelName: modelName
+                        modelInstance: @
+                        attribute: attributeName
+                        validationName: validationName
+                    return false
 
-                    if not res
-                        modelName = getObjectClass @
-                        data = {}
-                        data.modelName = modelName
-                        data.modelInstance = @
-                        data.attribute = attrName
-                        data.validationName = validationName
-                        PubSub.publish "error/#{modelName}", data
+            return true
                         
+
         # TODO: Move this function?
         getObjectClass = (obj) ->
             if obj and obj.constructor and obj.constructor.toString

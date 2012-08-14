@@ -11,7 +11,7 @@ define ['pubsub'], (PubSub) ->
     _aclick_factory = (href, old_onclick) ->
         return (e) =>
             old_onclick?()
-            PubSub.publish "navigate/#{href}",
+            PubSub.publish "navigate #{href}",
                 url: href
                 post_route: (err) ->
                     if err
@@ -34,7 +34,7 @@ define ['pubsub'], (PubSub) ->
                     else
                         attrs[item.getAttribute('name')] = item.value
 
-            PubSub.publish "form/submit/#{form_tag.getAttribute('data-bind')}", {form: form_tag, attrs: attrs}
+            PubSub.publish "submit #{form_tag.getAttribute('data-bind')}", {form: form_tag, attrs: attrs}
 
             e.preventDefault()
             return false
@@ -46,7 +46,7 @@ define ['pubsub'], (PubSub) ->
                 if item.getAttribute('name')
                     item.onchange = ((item)->
                         return ->
-                            PubSub.publish "form/change/#{form_tag.getAttribute('data-bind')}", {form: form_tag, input: item}
+                            PubSub.publish "change #{form_tag.getAttribute('data-bind')}", {form: form_tag, input: item}
                     )(item)
         return
 
