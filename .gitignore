@@ -1,5 +1,2 @@
-src/*.js
-demo/demo.js
 demo/*.html
-demo/node_modules
-demo/node_modules/*
+node_modules
