@@ -3,8 +3,12 @@
 // Danilo.js is based on the MOVE pattern, so you should read [this post](http://cirw.in/blog/time-to-move-on) first.
 // Danilo.js use [RequireJS](http://requirejs.org) for module definitions.
 //
-// *Please note that Events and Operations are asynchronous.*
-
+// You should **really** look at the 
+// [**README**](https://github.com/lusentis/danilo.js/blob/coffee-is-evil/README.md) 
+// in this repo for a quick introduction to Danilo.js.
+//
+// > *Please remember that Events and Operations are asynchronous.*
+//
 
 // Demo application
 // ----------------
@@ -176,39 +180,63 @@
 
     // Handling validation errors
     // --------------------------
+    // Validation will occur when you call ```modelInstance.validate()``` method 
+    // or when you set an attribute via ```modelInstance.set(attrName, attrValue)``` if ```model.autoValidate === true```.
+    //
+    // If the validation fails:
+    //
+    //  - The setter (or the validate function) returns ```false```.
+    //  - An Event will be fired with a ```validationError``` prefix - **asynchronous!**
 
-    // The async way
+    // This Operation will catch validation errors for the model ```User```:
     new danilo.Operation({
       receive: ['validationError User']
     }, function(data) {
+      // The handler function's first parameter is an object containing 
+      // the name of the attribute and the name of the validator that failed.
       console.log("Validation Error: the attribute " + data.attribute + " violates the validator " + data.validationName + ".");
     });
 
-
-
-
-
-
-
-    // Validation demo
-    pluto.set('username', 'this is illegal (not capitalized)');
-    console.log('pluto username is now', pluto.get('username'));
-    pluto.set('username', 'Shrt');
+    // Here the username does not start with an uppercase letter, 
+    // violating ```firstLetterIsCapital``` custom validator:
+    pluto.set('username', 'this is illegal (not capitalized)'); // -> false + triggers validationError User
     console.log('pluto username is now', pluto.get('username'));
 
+    // and here the username is too short:
+    pluto.set('username', 'Shrt');  // -> false + triggers validationError User
+    console.log('pluto username is now', pluto.get('username'));
 
-    // Reactive operations
+    // and this is ok:
+    pluto.set('username', 'Pluta'); // -> true
+
+
+    // Reactive Operations
     // -------------------
-    
-    var s = danilo.storage;
+    // **Reactive Operations** will be executed every time *something changes*.
+    //
+
+    // ### a) Reactive Operations bound to *danilo.storage* ###
+
+    // Danilo.js has a ```storage``` object: 
+    // it's a place where you can store objects in a dictionary-like fashion;
+    // when you set the value of a stored object an Event will be fired, containing
+    // data on what happened.
+
+    var s = danilo.storage; // this is only a shortcut for the storage
+    // Set the value for ```weather```:
     s.set('weather', 'cloudy');
+    // Set the value for ```bring sunglasses```:
     s.set('bring sunglasses', false);
 
+
+    // Then, we define an Operation that *reacts* to changes of the ```weather```.
     new danilo.Operation({
+      // Events fired by the storage will have the ```reactive``` prefix.
       receive: ['reactive weather']
     }, function(value) {
       console.log('Hey, the weather is changing!');
 
+      // When the weather changes we decide whether to bring sunglasses or not.
       if (value === 'sunny') {
         s.set('bring sunglasses', true);
       } else {
@@ -216,22 +244,37 @@
       }
     });
 
+    // Remember that **everything is asynchronous**.
     s.set('weather', 'sunny');
-    setTimeout(function(){ // Reactive event loop is finished
+    setTimeout(function(){
       console.log('Weather is '+s.get('weather')+' then I '+((s.get('bring sunglasses')?'should':'should not'))+' bring sunglasses');
     },0);
     s.set('weather', 'cloudy');
 
 
-    // Reactive operation bound to a model attribute
+    // ### b) Reactive operation bound to a model attribute ###
+    // If you set the [reactive option](#section-15) in an attribute definition,
+    // an Event will be fired when that attribute is initialized or modified.
+
     new danilo.Operation({
+      // The Event name is prefixed by ```reactive``` and 
+      // contains the Model name plus the attribute name.
       receive: ['reactive User.username']
     }, function(value, obj) {
-      obj.set('lengthOfMyUsername', value.length);
+      // The handler function is called with two parameters: the new value of the field and the object that has been updated.
+      obj.set('lengthOfMyUsername', value.length); // Updates another field
       console.log('My new name is '+obj.get('lengthOfMyUsername')+' characters long');
     });
 
+    // This will trigger **asynchronously** the above operation (because ```username.reactive===true```):
     pippo.set('username', 'MyReallyReallyReallyCoolNewUsername')
+
+
+    // The Router
+    // ----------
+
+    // The Router?
+    /* Ehm,... @TODO */
 
 
   });
