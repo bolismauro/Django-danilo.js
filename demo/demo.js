@@ -1,5 +1,5 @@
 //
-// *Danilo.js* is a lightweight javascript framework and router for the browser.
+// **Danilo.js** is a lightweight javascript framework and router for the browser.
 // Danilo.js is based on the MOVE pattern, so you should read [this post](http://cirw.in/blog/time-to-move-on) first.
 // Danilo.js use [RequireJS](http://requirejs.org) for module definitions.
 //
@@ -22,6 +22,10 @@
     // This parses the DOM and attacch Danilo.js events.
     danilo.router();
 
+
+    // Defining Models
+    // ---------------
+
     // We define a User class which extends danilo.Model
     User = (function(_super) {
       __extends(User, _super);
@@ -34,13 +38,14 @@
       User.prototype.url = '/user/';
       
       // This tells Danilo.js to autovalidate each attribute as soon as you call the setter.
-      // If *false*, validation only occurs by manually calling the .validate() instance method.
+      // If ```false```, validation only occurs by manually calling the ```validate()``` instance method.
       User.prototype.autoValidate = true;
 
-      // Defining Model attributes
-      // -------------------------
+      
+      // ### Defining Model attributes ###
 
-      // Web define instance attributes in an *attr* object
+
+      // We define instance attributes in an ```attr``` object.
       User.prototype.attrs = {
 
         // There are **two kinds of attribute definition**:
@@ -51,24 +56,27 @@
 
         // or **extended definition** by providing an object whith some properties for this attribute:
         username: {
-          // * the default value
+          // * The default value.
           defaultValue: 'Default username',
 
-          // * a reactive property: **true** if the attribute should trigger a *Reactive Operation* when changed (see later).
+          // * A ```reactive``` property: ```true``` if the attribute should trigger a 
+          // **Reactive Operation** when changed (see the following paragraphs).
+          // Defaults to ```false```.
           reactive: true,
 
-          // * and an object containing validators
+          // * An object containing validators.
           validators: {
-            // we provide some default validators
+            // we provide some default validators...
             minLength: 5,
             maxLength: 100,
 
-            // or you can define your own validators as a function that takes 
-            // the value as parameter and returns true or false depending on the validation result
+            // ...and you can define your own validators as a function taking 
+            // the attribute value as parameter and returning ```true``` if the validation succeded; ```false``` otherwise.
             firstLetterIsCapital: function(attributeValue) {
               return attributeValue[0].toUpperCase() === attributeValue[0];
             }
 
+            // More on valiadtors in the following paragraphs.
 
           }
         }
@@ -76,6 +84,29 @@
 
       return User;
     })(danilo.Model);
+
+
+    // ### Model usage example ###
+
+    // Create a new User with "Pippo" as username.
+    // Pippo's password will be the ```defaultValue``` defined in the Model
+    pippo = new User({
+      username: 'Pippo'
+    });
+    // Now we set Pippo's password...
+    pippo.set('password', '123');
+    // ...and print some information
+    console.log('pippo username is ', pippo.get('username'));
+    console.log('pippo password is ', pippo.get('password'));
+
+    // We create another User, just for fun
+    pluto = new User({
+      password: 'my_custom_password'
+    });
+    // Here we set Pluto's username
+    pluto.set('username', 'Pluto');
+    console.log('pluto username is ', pluto.get('username'));
+    console.log('pluto password is ', pluto.get('password'));
 
 
     // Defining Operations
@@ -141,6 +172,8 @@
     });
 
 
+
+
     // Handling validation errors
     // --------------------------
 
@@ -152,22 +185,10 @@
     });
 
 
-    /* ** Demo ** */
-
-    pippo = new User({
-      username: 'Pippo'
-    });
-    pippo.set('password', '123');
-    console.log('pippo username is ', pippo.get('username'));
-    console.log('pippo password is ', pippo.get('password'));
 
 
-    pluto = new User({
-      password: 'custom_password'
-    });
-    pluto.set('username', 'Pluto');
-    console.log('pluto username is ', pluto.get('username'));
-    console.log('pluto password is ', pluto.get('password'));
+
+
 
     // Validation demo
     pluto.set('username', 'this is illegal (not capitalized)');
@@ -202,7 +223,7 @@
     s.set('weather', 'cloudy');
 
 
-    // Reactive operation binded to a model attribute
+    // Reactive operation bound to a model attribute
     new danilo.Operation({
       receive: ['reactive User.username']
     }, function(value, obj) {
