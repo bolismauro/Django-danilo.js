@@ -44,6 +44,9 @@
         if (this.autoValidate === true) {
           if (this.validate(attribute, value)) {
             this.attributeValues[attribute] = value;
+            return true;
+          } else {
+            return false;
           }
         } else {
           this.attributeValues[attribute] = value;
