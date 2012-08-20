@@ -20,6 +20,8 @@
         return PubSub.unsubscribe(this.subscription);
       };
 
+
+      // Statics
       Operation.trigger = function(eventName, params) {
         return PubSub.publish("custom " + eventName, params);
       };
@@ -35,6 +37,10 @@
       return Operation;
 
     })();
+
+
+
+
   });
 
 }).call(this);

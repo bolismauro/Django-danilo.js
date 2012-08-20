@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  define(['pubsub', 'promise', 'validation'], function(PubSub, Promise, Validation) {
+  define(['./storage', 'pubsub', 'promise', 'validation'], function(storage, PubSub, Promise, Validation) {
     var Model;
     return Model = (function() {
       var getObjectClass;
@@ -17,7 +17,7 @@
           } else {
             this.attributeValues[attr] = '';
             if (attrInfo.defaultValue != null) {
-              this.attributeValues[attr] = attrInfo.defaultValue;
+              this.set(attr, attrInfo.defaultValue);
             }
           }
           if ((values != null ? values[attr] : void 0) != null) {
@@ -41,13 +41,18 @@
       };
 
       Model.prototype.set = function(attribute, value) {
-        if (this.autoValidate) {
+        if (this.autoValidate === true) {
           if (this.validate(attribute, value)) {
-            return this.attributeValues[attribute] = value;
+            this.attributeValues[attribute] = value;
           }
         } else {
-          return this.attributeValues[attribute] = value;
+          this.attributeValues[attribute] = value;
         }
+
+        if (this.attrs[attribute].reactive === true) {
+          storage._reactive_publish(getObjectClass(this)+'.'+attribute, value, this);
+        }
+
       };
 
       Model.prototype.validate = function(attributeName, attributeValue) {
