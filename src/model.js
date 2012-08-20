@@ -41,12 +41,13 @@
       };
 
       Model.prototype.set = function(attribute, value) {
+        var valiadtionResult = true;
+
         if (this.autoValidate === true) {
-          if (this.validate(attribute, value)) {
+          validationResult = this.validate(attribute, value)
+
+          if (validationResult) {
             this.attributeValues[attribute] = value;
-            return true;
-          } else {
-            return false;
           }
         } else {
           this.attributeValues[attribute] = value;
@@ -55,6 +56,8 @@
         if (this.attrs[attribute].reactive === true) {
           storage._reactive_publish(getObjectClass(this)+'.'+attribute, value, this);
         }
+
+        return validationResult;
 
       };
 
