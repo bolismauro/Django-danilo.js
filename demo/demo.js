@@ -31,12 +31,12 @@
     // ---------------
 
     // We define a User class which extends danilo.Model
-    User = (function(_super) {
-      __extends(User, _super);
-
-      function User() {
+    User = (function() {
+      var User = function() {
         return User.__super__.constructor.apply(this, arguments);
       }
+      __extends(User, danilo.Model);
+
 
       // The url for remote CRUD operations. Can be an absolute url, but keep in mind the *same origin policy*.
       User.prototype.url = '/user/';
@@ -87,7 +87,7 @@
       };
 
       return User;
-    })(danilo.Model);
+    })();
 
 
     // ### Model usage example ###
