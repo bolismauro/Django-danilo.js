@@ -41,7 +41,7 @@
       };
 
       Model.prototype.set = function(attribute, value) {
-        var valiadtionResult = true;
+        var validationResult = true;
 
         if (this.autoValidate === true) {
           validationResult = this.validate(attribute, value)
