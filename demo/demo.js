@@ -1,7 +1,7 @@
 //
 // **Danilo.js** is a lightweight javascript framework and router for the browser.
 // Danilo.js is based on the MOVE pattern, so you should read [this post](http://cirw.in/blog/time-to-move-on) first.
-// Danilo.js use [RequireJS](http://requirejs.org) for module definitions.
+// Danilo.js uses [RequireJS](http://requirejs.org) for module definitions.
 //
 // You should **really** look at the 
 // [**README**](https://github.com/lusentis/danilo.js/blob/coffee-is-evil/README.md) 
