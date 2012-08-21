@@ -27,11 +27,51 @@
         </ul>
       </header>
       <section>
-        <h2>Status</h2>
+        <h1>Danilo.js</h1>
 
-<p>danilo.js is currently in an early development status, so <em>don't use it!</em>.</p>
+<p><strong>Danilo.js</strong> is a javascript framework and router for the browser. </p>
 
-<p>MOVE pattern introduction: <a href="http://cirw.in/blog/time-to-move-on">http://cirw.in/blog/time-to-move-on</a></p>
+<p>Danilo is developed mainly for <em>single-page</em> web applications.</p>
+
+<h2>Prerequisites</h2>
+
+<ul>
+<li>Danilo.js is based on the MOVE pattern, so you should read this <a href="http://cirw.in/blog/time-to-move-on">introduction to MOVE</a> first. </li>
+<li>We use <a href="http://requirejs.org">RequireJS</a> for module definitions.</li>
+</ul><h2>Danilo.js and The MOVE pattern</h2>
+
+<p>ToDo.</p>
+
+<h2>Getting Started</h2>
+
+<p>The best way to start using Danilo.js is checking out the Demo application and then reading its <a href="http://www.plasticpanda.com/projects/danilo.js/">annotated source</a>.</p>
+
+<h3>Run the demo application</h3>
+
+<p>You should have installed <code>node</code> (and npm) on your machine. If not <a href="http://nodejs.org/download/">download and install Node.js</a> now.</p>
+
+<div class="highlight"><pre>    <span class="c"># checkout this repo</span>
+    git clone https://github.com/PlasticPanda/danilo.js
+
+    <span class="c"># compile .jade files and build danilo.min.js</span>
+    make
+
+    <span class="c"># install demo dependencies</span>
+    <span class="nb">cd </span>demo <span class="o">&amp;&amp;</span> npm install
+
+    <span class="c"># run the server</span>
+    node server
+
+    <span class="c"># open your browser to http://localhost:8000/demo/demo.html</span>
+    open http://localhost:8000/demo/demo.html <span class="c"># (on Mac)</span>
+</pre></div>
+
+<p>You may want to open Firebug / WebKit's inspector to see <code>console.log</code> messages.</p>
+
+<p>In the demo there is a <code>window.danilo</code> object you can use to play with Danilo.js without the need to define
+a RequireJS module.</p>
+
+<p>Once you're familiar with the demo you should read its <a href="http://www.plasticpanda.com/projects/danilo.js/">annotated source</a>.</p>
       </section>
     </div>
     <footer>
