@@ -1,0 +1,19 @@
+{
+  "name": "danilojs-demo",
+  "version": "0.0.1",
+  "description": "Danilo.js Demo Application",
+  "main": "demo.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": "",
+  "author": "Simone Lusenti",
+  "license": "GPLv3",
+  "dependencies": {
+    "node-static": "~0.6.0"
+  }
+}
