@@ -25,7 +25,7 @@ The best way to start using Danilo.js is checking out the Demo application and t
 ### Run the demo application ###
 You should have installed ```node``` (and npm) on your machine. If not [download and install Node.js][] now.
 
-
+```bash
     # checkout this repo
     git clone https://github.com/PlasticPanda/danilo.js
 
@@ -40,6 +40,7 @@ You should have installed ```node``` (and npm) on your machine. If not [download
 
     # open your browser to http://localhost:8000/demo/demo.html
     open http://localhost:8000/demo/demo.html # (on Mac)
+```
 
 You may want to open Firebug / WebKit's inspector to see ```console.log``` messages.
 
