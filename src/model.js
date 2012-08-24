@@ -34,21 +34,17 @@
         attributes = formElement.querySelectorAll('[data-bind]');
         attributes = Array.prototype.slice.apply(attributes); // Convert NodeList to Array
         
-        // @TODO: sync_validate method should be cleaned up...
-        if (typeof sync_validate != "undefined" && sync_validate === true) {
-          // .forEach is required instead of for..in because .lenght property is enumerable (oh my God...)
+        if (sync_validate === true) {
+          // Perform a dry-run before changing the model instance
           attributes.forEach(function (attr, i) {
-            validation_result = that.set(attr.getAttribute('data-bind'), attr.value, true);
-            
+            validation_result = that.set(attr.getAttribute('data-bind'), attr.value, true); // true=dry_run
             if (validation_result === false) {
               return false;
             }
           });    
         }
-        // /TODO
         
         attributes.forEach(function (attr, i) {
-          // @FIXME @BUG: .value probably does not correctly handle textareas and radio elements
           that.set(attr.getAttribute('data-bind'), attr.value);
         });
         
