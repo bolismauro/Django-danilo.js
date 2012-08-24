@@ -1,5 +1,5 @@
+"use strict";
 (function() {
-  "use strict";
 
   define(['pubsub'], function(PubSub) {
     var Operation;

@@ -1,9 +1,6 @@
+"use strict";
 (function(){
-    /*
-        Reactive storage for danilo.js
-    */
-
-    "use strict";
+    // Reactive storage for danilo.js
 
     define(['pubsub'], function(PubSub) {
 

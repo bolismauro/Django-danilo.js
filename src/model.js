@@ -1,5 +1,5 @@
+"use strict";
 (function() {
-  "use strict";
 
   define(['./storage', 'pubsub', 'promise', 'validation'], function(storage, PubSub, Promise, Validation) {
     var Model;

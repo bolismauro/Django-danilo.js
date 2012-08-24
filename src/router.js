@@ -1,5 +1,5 @@
+"use strict";
 (function() {
-  "use strict";
 
   define(['pubsub'], function(PubSub) {
     var init, _aclick_factory, _fixDOM, _formchange_add_handlers, _formsubmit_factory, _get_current_route, _set_current_route;

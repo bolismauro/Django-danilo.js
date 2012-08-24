@@ -1,5 +1,5 @@
+"use strict";
 (function() {
-  "use strict";
 
   define(['promise', 'superagent'], function(Promise, request_is_not_requirejs_compatible) {
     var Remote;

@@ -1,5 +1,5 @@
+"use strict";
 (function() {
-  "use strict";
 
   /*
   	TODO: find a method to modularize validation.

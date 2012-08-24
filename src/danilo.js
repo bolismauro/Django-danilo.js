@@ -1,5 +1,5 @@
+"use strict";
 (function() {
-  "use strict";
 
   define(['./router', './model', './operation', './remote', './storage', 'handlebars'], function(router, Model, Operation, Remote, storage, Handlebars) {
     var render_template
