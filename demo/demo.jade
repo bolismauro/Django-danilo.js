@@ -16,9 +16,27 @@ html
             p
                 input(type="submit", value="Click me!")
 
-        br
+        hr
+            
         p This is a simple button. When the page is loaded a custom event is attached
         input(type="button", value="Custom event button", id="custom-event-button")
+        
+        hr
+        
+        form(data-bind="my_user_form")
+            fieldset
+                legend Parsing model attributes from an HTML form
+                p
+                    label Username
+                    input(type="text", name="username", data-bind="username")
+                        
+                p
+                    label Password
+                    input(type="password", name="password", data-bind="password")
+                        
+                p
+                    input(type="submit", value="Save")
+                        
 
         script(type="text/javascript", src="../libs/promise.js")
         script(type="text/javascript", src="../libs/pubsub.js")

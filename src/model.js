@@ -24,6 +24,34 @@
             this.attributeValues[attr] = values[attr];
           }
         }
+      };
+      
+      Model.prototype.form = function(formElement, sync_validate) {
+        var attributes = formElement.querySelectorAll('[data-bind]')
+          , validation_result = true;
+        
+        // @TODO: sync_validate method should be cleaned up...
+        if (typeof sync_validate != "undefined" && sync_validate === true) {
+         for (var i in attributes) {
+            if (attributes.hasOwnProperty(i)) {
+              validation_result = this.set(attributes[i].getAttribute('data-bind'), attributes[i].value, true);
+              
+              if (validation_result === false) {
+                return false;
+              }
+            }
+          }         
+        }
+        // /TODO
+        
+        for (var i in attributes) {
+          // @FIXME @BUG: .value probably does not correctly handle textareas and radio elements
+          if (attributes.hasOwnProperty(i)) {
+            this.set(attributes[i].getAttribute('data-bind'), attributes[i].value);
+          }
+        }
+        
+        return true;
       }
 
       Model.prototype.update = function(attrs) {
@@ -40,20 +68,26 @@
         return this.attributeValues[attribute];
       };
 
-      Model.prototype.set = function(attribute, value) {
+      Model.prototype.set = function(attribute, value, dry_run) {
         var validationResult = true;
+        
+        if (typeof dry_run == "undefined") {
+          dry_run = false;
+        }
 
         if (this.autoValidate === true) {
           validationResult = this.validate(attribute, value)
 
-          if (validationResult) {
+          if (validationResult && dry_run === false) {
             this.attributeValues[attribute] = value;
           }
         } else {
-          this.attributeValues[attribute] = value;
+          if (dry_run === false) {
+            this.attributeValues[attribute] = value;
+          }
         }
 
-        if (this.attrs[attribute].reactive === true) {
+        if (this.attrs[attribute].reactive === true && dry_run === false) {
           storage._reactive_publish(getObjectClass(this)+'.'+attribute, value, this);
         }
 

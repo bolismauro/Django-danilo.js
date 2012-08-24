@@ -179,6 +179,26 @@
     }).register();
 
 
+    // ### NEW: Populating Model instances form HTML forms
+    new danilo.Operation('submit my_user_form', function (data) {
+      
+      var myself = new User();
+      // Parses ```data.form``` element end sets the corresponding attributes.
+      // Validators will be honored and if the second parameter is ```true``` 
+      // the function will validate all the attributes **before** changing the model
+      // and returns ```false``` if any of them did not validate.
+      // Failing validators will **always** trigger validationError events.
+      if (myself.form(data.form, true)) { 
+        alert("Form saved! Check the console for details.");
+        console.log("This User has been retreived from an HTML Form:",
+          "username=", myself.get('username'),
+          "password=", myself.get('password'));
+      } else {
+        alert("Your form did not validate. Please correct them and retry!");
+      }
+      
+    }).register();
+
 
 
     // Handling validation errors
@@ -271,6 +291,9 @@
 
     // This will trigger **asynchronously** the above operation (because ```username.reactive===true```):
     pippo.set('username', 'MyReallyReallyReallyCoolNewUsername')
+
+
+
 
 
     // The Router
