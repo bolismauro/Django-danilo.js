@@ -41,7 +41,7 @@
           if (item.getAttribute('data-skip') !== 'true') {
             if (!item.getAttribute('name')) {
               if (typeof console !== "undefined" && console !== null) {
-                console.log('This field does not have a name', item);
+                console.log('[debug-router] this field does not have a name', item);
               }
             } else {
               attrs[item.getAttribute('name')] = item.value;
