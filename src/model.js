@@ -28,7 +28,8 @@
       
       Model.prototype.form = function(formElement, sync_validate) {
         var attributes = []
-          , validation_result = true;
+          , validation_result = true
+          , that = this;
           
         attributes = formElement.querySelectorAll('[data-bind]');
         attributes = Array.prototype.slice.apply(attributes); // Convert NodeList to Array
@@ -37,7 +38,7 @@
         if (typeof sync_validate != "undefined" && sync_validate === true) {
           // .forEach is required instead of for..in because .lenght property is enumerable (oh my God...)
           attributes.forEach(function (attr, i) {
-            validation_result = this.set(attr.getAttribute('data-bind'), attr.value, true);
+            validation_result = that.set(attr.getAttribute('data-bind'), attr.value, true);
             
             if (validation_result === false) {
               return false;
@@ -48,7 +49,7 @@
         
         attributes.forEach(function (attr, i) {
           // @FIXME @BUG: .value probably does not correctly handle textareas and radio elements
-          this.set(attr.getAttribute('data-bind'), attr.value);
+          that.set(attr.getAttribute('data-bind'), attr.value);
         });
         
         return true;
