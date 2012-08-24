@@ -46,6 +46,7 @@
           });    
         }
         
+        // We should use .update(), but we need a dictionary instead of the attributes Array
         attributes.forEach(function (attr, i) {
           that.set(attr.getAttribute('data-bind'), attr.value);
         });
@@ -54,13 +55,11 @@
       }
 
       Model.prototype.update = function(attrs) {
-        var k, v, _results;
-        _results = [];
-        for (k in attrs) {
-          v = attrs[k];
-          _results.push(this.attributeValues[k] = v);
-        }
-        return _results;
+        var that = this;
+        
+        Object.keys(attrs).forEach(function(attrName) {
+          that.set(attrName, attrs[attrName]);
+        });
       };
 
       Model.prototype.get = function(attribute) {
