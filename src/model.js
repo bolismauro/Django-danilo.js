@@ -27,8 +27,11 @@
       };
       
       Model.prototype.form = function(formElement, sync_validate) {
-        var attributes = formElement.querySelectorAll('[data-bind]')
+        var attributes = []
           , validation_result = true;
+          
+        attributes = formElement.querySelectorAll('[data-bind]');
+        attributes = Array.prototype.slice.apply(attributes); // Convert NodeList to Array
         
         // @TODO: sync_validate method should be cleaned up...
         if (typeof sync_validate != "undefined" && sync_validate === true) {
