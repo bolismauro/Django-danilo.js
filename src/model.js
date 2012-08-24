@@ -32,24 +32,21 @@
         
         // @TODO: sync_validate method should be cleaned up...
         if (typeof sync_validate != "undefined" && sync_validate === true) {
-         for (var i in attributes) {
-            if (attributes.hasOwnProperty(i)) {
-              validation_result = this.set(attributes[i].getAttribute('data-bind'), attributes[i].value, true);
-              
-              if (validation_result === false) {
-                return false;
-              }
+          // .forEach is required instead of for..in because .lenght property is enumerable (oh my God...)
+          attributes.forEach(function (attr, i) {
+            validation_result = this.set(attr.getAttribute('data-bind'), attr.value, true);
+            
+            if (validation_result === false) {
+              return false;
             }
-          }         
+          });    
         }
         // /TODO
         
-        for (var i in attributes) {
+        attributes.forEach(function (attr, i) {
           // @FIXME @BUG: .value probably does not correctly handle textareas and radio elements
-          if (attributes.hasOwnProperty(i)) {
-            this.set(attributes[i].getAttribute('data-bind'), attributes[i].value);
-          }
-        }
+          this.set(attr.getAttribute('data-bind'), attr.value);
+        });
         
         return true;
       }
