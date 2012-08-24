@@ -1,3 +1,5 @@
+"use strict";
+
 //
 // **Danilo.js** is a lightweight javascript framework and router for the browser.
 // Danilo.js is based on the MOVE pattern, so you should read [this post](http://cirw.in/blog/time-to-move-on) first.
@@ -120,7 +122,8 @@
     //
     //  * a *list of triggering events*
     //  * and the function to call when one of the events is triggered
-
+    
+    // **Modified**: you need to call ```.register()``` on your Operation instance to add its event listeners.
 
     new danilo.Operation({
       // This tells Danilo.js to execute this operation 
@@ -144,7 +147,7 @@
       console.log('form is being validated...');
       console.log('you have changed ', data.input, 'value, inside form', data.form);
       data.form.setAttribute('data-valid', 'true');
-    });
+    }).register();
 
 
     // Now we define an operation that will be executed when the *try_login* form is submitted.
@@ -153,7 +156,7 @@
     }, function(data) {
       console.log('got data', data.attrs);
       alert('triggered event');
-    });
+    }).register();
 
 
     // ### Binding Operations to standard DOM Events ###
@@ -173,7 +176,7 @@
     }, function(data) {
       // ```data``` is the DOMElement the event is attached to
       alert("Custom event triggered from button with id: '" + data.id + "'");
-    });
+    }).register();
 
 
 
@@ -195,7 +198,7 @@
       // The handler function's first parameter is an object containing 
       // the name of the attribute and the name of the validator that failed.
       console.log("Validation Error: the attribute " + data.attribute + " violates the validator " + data.validationName + ".");
-    });
+    }).register();
 
     // Here the username does not start with an uppercase letter, 
     // violating ```firstLetterIsCapital``` custom validator:
@@ -242,7 +245,7 @@
       } else {
         s.set('bring sunglasses', false);
       }
-    });
+    }).register();
 
     // Remember that **everything is asynchronous**.
     s.set('weather', 'sunny');
@@ -264,7 +267,7 @@
       // The handler function is called with two parameters: the new value of the field and the object that has been updated.
       obj.set('lengthOfMyUsername', value.length); // Updates another field
       console.log('My new name is '+obj.get('lengthOfMyUsername')+' characters long');
-    });
+    }).register();
 
     // This will trigger **asynchronously** the above operation (because ```username.reactive===true```):
     pippo.set('username', 'MyReallyReallyReallyCoolNewUsername')

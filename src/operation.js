@@ -4,22 +4,40 @@
   define(['pubsub'], function(PubSub) {
     var Operation;
     return Operation = (function() {
+      
+      var subscriptions = []
+        , receive = []
+        , handler = [];
 
-      function Operation(options, handler) {
-        var ev, _i, _len, _ref, _ref1;
-        if ((options.receive != null) && ((_ref = options.receive) != null ? _ref.length : void 0)) {
-          _ref1 = options.receive;
-          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-            ev = _ref1[_i];
-            this.subscription = PubSub.subscribe(ev, handler);
+      function Operation(options, op_handler) {
+        if (typeof options == "string") {
+          receive = [options];
+        } else {
+          if (typeof options.receive != "undefined" && options.receive.length > 0) {
+            receive = options.receive;
+          }
+        }
+        
+        if (typeof op_handler == "function") {
+          handler = op_handler;
+        } else {
+          handler = function(){};
+        }
+      }
+
+      Operation.prototype.register = function() {
+        if (receive.length > 0) {
+          for (var i in receive) {
+            subscriptions.push(PubSub.subscribe(receive[i], handler));
           }
         }
       }
 
-      Operation.prototype.remove = function() {
-        return PubSub.unsubscribe(this.subscription);
+      Operation.prototype.unregister = function() {
+        for (var i in subscriptions) {
+          PubSub.unsubscribe(subscriptions[i]);
+        }
       };
-
 
       // Statics
       Operation.trigger = function(eventName, params) {
@@ -37,10 +55,5 @@
       return Operation;
 
     })();
-
-
-
-
   });
-
 }).call(this);
