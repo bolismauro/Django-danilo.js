@@ -78,7 +78,7 @@
 
             // ...and you can define your own validators as a function taking 
             // the attribute value as parameter and returning ```true``` if the validation succeded; ```false``` otherwise.
-            firstLetterIsCapital: function(attributeValue) {
+            firstLetterIsUppercase: function(attributeValue) {
               return attributeValue[0].toUpperCase() === attributeValue[0];
             }
 
@@ -201,8 +201,8 @@
     }).register();
 
     // Here the username does not start with an uppercase letter, 
-    // violating ```firstLetterIsCapital``` custom validator:
-    pluto.set('username', 'this is illegal (not capitalized)'); // -> false + triggers validationError User
+    // violating ```firstLetterIsUppercase``` custom validator:
+    pluto.set('username', 'this is illegal (first letter is lowercased)'); // -> false + triggers validationError User
     console.log('pluto username is now', pluto.get('username'));
 
     // and here the username is too short:
