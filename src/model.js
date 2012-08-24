@@ -7,23 +7,25 @@
       var getObjectClass;
 
       function Model(values) {
-        var attr, attrInfo, _ref;
+        var that = this;
         this.attributeValues = [];
-        _ref = this.attrs;
-        for (attr in _ref) {
-          attrInfo = _ref[attr];
-          if (typeof attrInfo !== "object") {
-            this.attributeValues[attr] = attrInfo;
-          } else {
-            this.attributeValues[attr] = '';
-            if (attrInfo.defaultValue != null) {
-              this.set(attr, attrInfo.defaultValue);
+        
+        Object.keys(this.attrs).forEach(function(attr) {
+            var attrInfo;
+            
+            if (typeof values != "undefined" && typeof values[attr] != "undefined") {
+              that.set(attr, values[attr]);
+              
+            } else {
+              attrInfo = that.attrs[attr];
+              if (typeof attrInfo == "object") {
+                that.set(attr, attrInfo.defaultValue);
+              } else {
+                that.set(attr, attrInfo);
+              }
             }
-          }
-          if ((values != null ? values[attr] : void 0) != null) {
-            this.attributeValues[attr] = values[attr];
-          }
-        }
+
+        });
       };
       
       Model.prototype.form = function(formElement, sync_validate) {
