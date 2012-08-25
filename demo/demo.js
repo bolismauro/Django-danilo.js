@@ -26,7 +26,7 @@
 
     // You should **initialize the router** at the top of the document.
     // This parses the DOM and attacch Danilo.js events.
-    danilo.router();
+    danilo.init();
 
 
     // Defining Models

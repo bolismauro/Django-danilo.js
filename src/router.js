@@ -108,7 +108,10 @@
       };
       return _fixDOM();
     };
-    return init;
+    
+    return {
+      init: init
+    };
   });
 
 }).call(this);

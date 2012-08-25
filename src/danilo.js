@@ -15,6 +15,7 @@
     exports.danilo = danilo = {
       render_template: render_template,
       router: router,
+      init: router.init,
       Model: Model,
       Operation: Operation,
       storage: storage,
