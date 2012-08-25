@@ -7,6 +7,8 @@ Danilo.js
 
 Danilo is developed mainly for *single-page* web applications.
 
+[![Build Status](https://secure.travis-ci.org/PlasticPanda/danilo.js.png?branch=master)](http://travis-ci.org/PlasticPanda/danilo.js)
+
 Prerequisites
 --------------
 * Danilo.js is based on the MOVE pattern, so you should read this [introduction to MOVE][] first. 
