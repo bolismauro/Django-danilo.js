@@ -6,6 +6,12 @@
   "directories": {
     "test": "tests"
   },
+  "dependencies": {
+    "expect.js": "~0.1.2",
+    "node-static": "~0.6.0",
+    "zombie": "~1.4.1",
+    "mocha": "~1.4.0"
+  },
   "scripts": {
     "test": "mocha tests/tests.js --reporter spec"
   },
