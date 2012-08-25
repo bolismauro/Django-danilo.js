@@ -37,7 +37,8 @@ window.specs.push(function(danilo){
     
     pippo = new User();
     pluto = new User({
-      username: 'Plutone'
+      username: 'Plutone',
+      password: 'passx'
     });
     
     beforeEach(function(){
@@ -63,8 +64,13 @@ window.specs.push(function(danilo){
         expect(pippo.get('password')).to.be(User.prototype.attrs.password);
       });
       
+      it('should set attributes from constructor', function(){
+        expect(pluto.get('username')).to.be('Plutone');
+        expect(pluto.get('password')).to.be('passx');
+      });
+      
       describe('#set', function(){
-        it('should set pippo username', function(){
+        it('should set username', function(){
           pippo.set('username', 'Piatto');
           expect(pippo.get('username')).to.be('Piatto');
         });
