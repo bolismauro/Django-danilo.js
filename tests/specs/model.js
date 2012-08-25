@@ -36,7 +36,9 @@ window.specs.push(function(danilo){
     })();
     
     pippo = new User();
-    pluto = new User();
+    pluto = new User({
+      username: 'Plutone'
+    });
     
     beforeEach(function() {
       spyOn(window, "alert").andCallFake(console.log);
@@ -59,6 +61,18 @@ window.specs.push(function(danilo){
       
       it('should have a default value as password', function() {
         expect(pippo.get('password')).to.be(User.prototype.attrs.password);
+      });
+      
+      describe('#set', function(){
+        it('should set pippo username', function() {
+          pippo.set('username', 'Piatto');
+          expect(pippo.get('username')).to.be('Piatto');
+        });
+        
+        it('should leave unchanged other usernames', function() {
+          expect(pluto.get('username')).to.be('Plutone');
+        });
+        
       });
       
       
