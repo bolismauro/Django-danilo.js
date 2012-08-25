@@ -1,5 +1,5 @@
 // Model tests
-// globals danilo
+// globals specs
 
 window.specs.push(function(danilo){
 
