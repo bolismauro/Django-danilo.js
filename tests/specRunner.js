@@ -6,11 +6,6 @@
   
   require(['danilo'], function(danilo) {
     danilo.init();
-       
-    exports.specs.forEach(function(spec) {
-      spec(danilo);
-    });
-   
- });
+  });
 
 })(window);

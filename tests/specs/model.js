@@ -1,7 +1,15 @@
+"use strict";
 // Model tests
-// globals specs
 
-window.specs.push(function(danilo){
+var expect = require('expect.js');
+
+var __hasProp = {}.hasOwnProperty
+var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+
+module.exports.runSpec = function(window){
+  
+  var danilo = window.danilo;
 
   describe('danilo', function(){
     var User
@@ -42,11 +50,12 @@ window.specs.push(function(danilo){
     });
     
     beforeEach(function(){
-      spyOn(window, "alert").andCallFake(console.log);
+      //spyOn(window, "alert").andCallFake(console.log);
     });
     
-    it('should export a danilo.Model object', function(){
+    it('should export a danilo.Model object', function(done){
       expect(danilo.Model).to.be.a("function");
+      done();
     });
     
     describe('User', function(){
@@ -98,4 +107,4 @@ window.specs.push(function(danilo){
     
   });
 
-});
+};

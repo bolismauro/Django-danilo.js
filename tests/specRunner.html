@@ -45,11 +45,6 @@
 
 <script type="text/javascript" src="../libs/require.js" data-main="./specRunner.js"></script>
 
-<!-- Tests -->
-<script type="text/javascript" src="libs/jasmine.js"></script>
-<script type="text/javascript" src="libs/jasmine-html.js"></script>
-<script type="text/javascript" src="libs/expect.js"></script>
-
 <script type="text/javascript">
   "use strict";
   
@@ -79,34 +74,7 @@
     });
 
   })();
-  
-  // Jasmine Spec Runner
-  window.specs = [];
-  
-  (function() {
-    var jasmineEnv = jasmine.getEnv();
-    jasmineEnv.updateInterval = 1000;
-
-    var htmlReporter = new jasmine.HtmlReporter();
-    jasmineEnv.addReporter(htmlReporter);
-
-    jasmineEnv.specFilter = function(spec) {
-      return htmlReporter.specFilter(spec);
-    };
-
-    var currentWindowOnload = window.onload;
-    window.onload = function() {
-      if (currentWindowOnload) {
-        currentWindowOnload();
-      }
-      jasmineEnv.execute();
-    };
-  })();
 </script>
-
-<!-- Specs -->
-<script type="text/javascript" src="specs/model.js"></script>
-
 
 </body>
 </html>
