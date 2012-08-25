@@ -1,18 +1,18 @@
 "use strict";
-(function() {
+(function(exports) {
 
   define(['./router', './model', './operation', './remote', './storage', 'handlebars'], function(router, Model, Operation, Remote, storage, Handlebars) {
     var render_template
       , danilo;
 
     render_template = function(template, ctx) {
-      if (ctx === undefined) {
+      if (ctx == null) {
         ctx = {};
       }
       return Handlebars.compile(template)(ctx);
     };
 
-    danilo = {
+    exports.danilo = danilo = {
       render_template: render_template,
       router: router,
       Model: Model,
@@ -21,8 +21,7 @@
       Remote: Remote
     };
 
-    window.danilo = danilo;
     return danilo;
   });
 
-}).call(this);
+})(window);
