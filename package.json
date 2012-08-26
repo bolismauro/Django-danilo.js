@@ -13,7 +13,8 @@
     "mocha": "~1.4.0"
   },
   "scripts": {
-    "test": "mocha tests/tests.js --reporter spec"
+    "test": "mocha tests/tests.js --reporter spec",
+    "server": "cd demo/ && node server &"
   },
   "repository": {
     "type": "git",
