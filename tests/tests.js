@@ -4,7 +4,8 @@ var expect = require('expect.js')
   , Browser = require('zombie')
   , browser = new Browser({
         //debug: true,
-        maxWait: 20000
+        maxWait: 30000,
+        waitFor: 2000
     });
 
 
