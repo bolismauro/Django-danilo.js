@@ -15,9 +15,7 @@ describe('navigator', function() {
             
             expect(browser.success).to.be(true);
             
-            console.log("Browser:", browser);
-            console.log("-----");
-            console.log(browser.dump());
+            console.log("Browser errors:", browser.errors);
             
             var modelSpec = require('./specs/model');
             modelSpec.runSpec(browser.window);
