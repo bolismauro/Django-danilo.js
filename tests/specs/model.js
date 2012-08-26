@@ -9,6 +9,8 @@ var __extends = function(child, parent) { for (var key in parent) { if (__hasPro
 
 module.exports.runSpec = function(window){
   
+  console.log("Window is:", window);
+  
   var danilo = window.danilo;
 
   describe('danilo', function(){
