@@ -2,7 +2,10 @@
 
 var expect = require('expect.js')
   , Browser = require('zombie')
-  , browser = new Browser();
+  , browser = new Browser({
+        debug: true,
+        maxWait: 20
+    });
 
 
 describe('navigator', function() {
