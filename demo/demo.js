@@ -29,7 +29,6 @@
     // Defining Models
     // ---------------
 
-    // We define a User class which extends danilo.Model
     User = (function() {
 
       // We define a User class, which extends danilo.Model, using extends function 
