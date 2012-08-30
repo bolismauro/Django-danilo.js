@@ -1,32 +1,29 @@
 "use strict";
 (function(){
-    // Reactive storage for danilo.js
-
+    // The Router of danilo.js
     define([], function() {
-
         var router = (function(){
-
             var router
               , views = {}
               , History = window.History;
 
             router = {}
-            
             router.init = function(name) {
-                if ( !History.enabled ) {
+                if (typeof History !== "undefined" && History.enabled) {
+                    History.Adapter.bind(window,'statechange',function(){ 
+                        var State = History.getState(); 
+                        var view_to_load = views[State.hash];
+
+                        if(view_to_load == null){
+                            console.log("[debug] view not found");
+                            return;
+                        }
+                        view_to_load.load();
+                    });
+                } else {
                     console.log("Danilo.js Routing is not supported by this browser");
+                    return;
                 }
-
-                History.Adapter.bind(window,'statechange',function(){ 
-                    var State = History.getState(); 
-                    var view_to_load = views[State.hash];
-
-                    if(view_to_load === undefined){
-                        console.log("[debug] view not found");
-                        return;
-                    }
-                    view_to_load.load();
-                });
             }
 
             router.register = function(view){
@@ -34,13 +31,12 @@
             }
 
             router.unRegister = function(view){
-                if(typeof(view) === "object") {
+                if (typeof view === "object"){
                     delete views[view.url];
-                }else{
+                } else {
                     delete views[view];
                 }
             }
-
 
             router.goToUrl = function(url, title, data) {
                 title = title || '';
@@ -48,12 +44,8 @@
                 History.pushState(data, title, url);
             }
             
-
             return router;
-
         })();
-
         return router;
     });
-
 }).call(this);
