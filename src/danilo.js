@@ -3,7 +3,8 @@
 
   define(['./router', './model', './operation', './remote', './storage', 'handlebars'], function(router, Model, Operation, Remote, storage, Handlebars) {
     var render_template
-      , danilo;
+      , danilo
+      , init;
 
     render_template = function(template, ctx) {
       if (ctx == null) {
@@ -12,10 +13,14 @@
       return Handlebars.compile(template)(ctx);
     };
 
+    init = function() {
+      router.init();
+    }
+
     exports.danilo = danilo = {
       render_template: render_template,
       router: router,
-      init: router.init,
+      init: init,
       Model: Model,
       Operation: Operation,
       storage: storage,
