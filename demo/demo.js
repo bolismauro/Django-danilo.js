@@ -16,10 +16,7 @@
 // ----------------
 
 (function(exports) {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-
+  
   // Require the library
   require(["danilo"], function(danilo) {
     var Document, User, pippo, pluto;
@@ -32,27 +29,19 @@
     // Defining Models
     // ---------------
 
-    // We define a User class which extends danilo.Model
     User = (function() {
-      var User = function() {
-        return User.__super__.constructor.apply(this, arguments);
-      }
-      __extends(User, danilo.Model);
 
+      // We define a User class, which extends danilo.Model, using extends function 
+      var User = danilo.Model.extends({
+        // The url for remote CRUD operations. Can be an absolute url, but keep in mind the *same origin policy*.
+        url : '/user/',
+        // This tells Danilo.js to autovalidate each attribute as soon as you call the setter.
+        // If ```false```, validation only occurs by manually calling the ```validate()``` instance method.
+        autoValidate: true,
 
-      // The url for remote CRUD operations. Can be an absolute url, but keep in mind the *same origin policy*.
-      User.prototype.url = '/user/';
-      
-      // This tells Danilo.js to autovalidate each attribute as soon as you call the setter.
-      // If ```false```, validation only occurs by manually calling the ```validate()``` instance method.
-      User.prototype.autoValidate = true;
+        // ### Defining Model attributes ###
 
-      
-      // ### Defining Model attributes ###
-
-
-      // We define instance attributes in an ```attr``` object.
-      User.prototype.attrs = {
+        attrs : {
 
         // There are **two kinds of attribute definition**:
 
@@ -86,7 +75,8 @@
 
           }
         }
-      };
+      }
+      });
 
       return User;
     })();
@@ -291,10 +281,6 @@
 
     // This will trigger **asynchronously** the above operation (because ```username.reactive===true```):
     pippo.set('username', 'MyReallyReallyReallyCoolNewUsername')
-
-
-
-
 
     // The Router
     // ----------

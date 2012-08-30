@@ -4,6 +4,12 @@
   define(['./storage', 'pubsub', 'promise', 'validation'], function(storage, PubSub, Promise, Validation) {
     var Model;
     return Model = (function() {
+
+      var __hasProp = {}.hasOwnProperty,
+      __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+
+
       var getObjectClass;
 
       function Model(values) {
@@ -28,6 +34,21 @@
         });
       };
       
+
+      Model.extends = function(params){
+      
+        var newModel = function() {
+          return newModel.__super__.constructor.apply(this, arguments);
+        }
+        __extends(newModel, Model);
+      
+        for(var name in params){
+          newModel.prototype[name] = params[name];
+        }
+
+        return newModel;
+      }
+
       Model.prototype.form = function(formElement, sync_validate) {
         var attributes = []
           , validation_result = true
