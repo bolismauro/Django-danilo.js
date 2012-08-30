@@ -287,6 +287,17 @@
 
     // The Router?
     /* Ehm,... @TODO */
+    var login_view = new danilo.View('/demo/login')
+    
+    .onLoad(function(){
+      alert('view loaded');
+    })
+
+    .onUnload(function(){
+      alert('view unload');
+    });
+
+    danilo.router.register(login_view);
 
 
   });

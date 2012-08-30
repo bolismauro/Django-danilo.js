@@ -1,7 +1,7 @@
 "use strict";
 (function(exports) {
 
-  define(['./router', './model', './operation', './remote', './storage', 'handlebars'], function(router, Model, Operation, Remote, storage, Handlebars) {
+  define(['./router', './model', './operation', './remote', './storage', 'handlebars', './view'], function(router, Model, Operation, Remote, storage, Handlebars, View) {
     var render_template
       , danilo
       , init;
@@ -24,7 +24,8 @@
       Model: Model,
       Operation: Operation,
       storage: storage,
-      Remote: Remote
+      Remote: Remote,
+      View: View
     };
 
     return danilo;
