@@ -13,7 +13,8 @@
         , _formchange_add_handlers
         , _fixForms
         , update
-        , init;
+        , init
+        , _fixAnchors;
       
       _formsubmit_factory = function(form_tag) {
         return function(e) {
@@ -76,10 +77,29 @@
           _formchange_add_handlers(item);
         });
       };
+
+      _fixAnchors = function(){
+        var items;
+        
+        items = document.querySelectorAll('a');
+        items = Array.prototype.slice.apply(items);
+        
+        items.forEach(function(item, k) {
+          if(item.getAttribute('data-skip') !== 'true'){
+            console.log(item);
+            item.onclick = function(e){
+              router.goToUrl(item.href,null,item.href);
+              window.History.pushState(null, null, item.href);
+              e.preventDefault();
+            }
+          }
+        });
+      }
       
       update = function() {
         // Call this when you add or remove views
         _fixForms();
+        _fixAnchors();
       }
       
       init = function() {
