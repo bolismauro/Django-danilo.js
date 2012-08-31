@@ -49,9 +49,7 @@
                 }
             }
 
-            router.goToUrl = function(url, title, data) {
-                title = title || '';
-                data = data || {};
+            router.goToUrl = function(url) {
                 History.pushState(null, null, url);
             }
             

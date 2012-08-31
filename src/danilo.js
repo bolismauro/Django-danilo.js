@@ -88,8 +88,7 @@
           if(item.getAttribute('data-skip') !== 'true'){
             console.log(item);
             item.onclick = function(e){
-              router.goToUrl(item.href,null,item.href);
-              window.History.pushState(null, null, item.href);
+              router.goToUrl(item.href);
               e.preventDefault();
             }
           }
