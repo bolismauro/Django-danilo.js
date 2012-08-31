@@ -5,7 +5,8 @@
         var router = (function(){
             var router
               , views = {}
-              , History = window.History;
+              , History = window.History
+              , actualView = undefined;
 
             router = {}
             router.init = function(name) {
@@ -15,14 +16,19 @@
 
                         var State = History.getState(); 
                         
-                        console.log(State);
-                        console.log(views);
                         var view_to_load = views[State.hash];
 
-                        if(view_to_load == null){
+                        if(view_to_load === null){
                             console.log("[debug] view not found");
                             return;
                         }
+
+                        if(actualView !== undefined ){
+                            actualView.unload();
+                        }
+
+                        actualView = view_to_load;
+
                         view_to_load.load();
                     });
                 } else {
@@ -46,7 +52,7 @@
             router.goToUrl = function(url, title, data) {
                 title = title || '';
                 data = data || {};
-                History.pushState(data, title, url);
+                History.pushState(null, null, url);
             }
             
             return router;
