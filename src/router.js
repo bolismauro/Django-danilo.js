@@ -11,7 +11,12 @@
             router.init = function(name) {
                 if (typeof History !== "undefined" && History.enabled) {
                     History.Adapter.bind(window,'statechange',function(){ 
+
+
                         var State = History.getState(); 
+                        
+                        console.log(State);
+                        console.log(views);
                         var view_to_load = views[State.hash];
 
                         if(view_to_load == null){

@@ -1,17 +1,10 @@
 "use strict";
 (function(exports) {
 
-  define(['./router', './model', './operation', './remote', './storage', 'handlebars', './view'], function(router, Model, Operation, Remote, storage, Handlebars, View) {
+  define(['./router', './model', './operation', './remote', './storage', './view'], function(router, Model, Operation, Remote, storage, View) {
     var render_template
       , danilo
       , dany;
-
-    render_template = function(template, ctx) {
-      if (ctx == null) {
-        ctx = {};
-      }
-      return Handlebars.compile(template)(ctx);
-    };
     
     dany = (function(router) {
       // Init and update handlers
@@ -90,6 +83,7 @@
       }
       
       init = function() {
+        router.init();
         update();
       };
       
@@ -101,7 +95,6 @@
     })(router);
 
     exports.danilo = danilo = {
-      render_template: render_template,
       router: router,
       init: dany.init,
       update: dany.update,

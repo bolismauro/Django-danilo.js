@@ -291,6 +291,9 @@
     
     .onLoad(function(){
       alert('view loaded');
+      this.render('../demo/templates/hello_again.html', 'body', {}, function(){
+        alert('Template loaded');
+      });
     })
 
     .onUnload(function(){
