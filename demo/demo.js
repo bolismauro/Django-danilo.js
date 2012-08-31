@@ -290,9 +290,7 @@
     var credits_view = new danilo.View('/demo/credits')
     
     .onLoad(function(){
-      this.render('../demo/templates/credits.html', '#container', {}, function(){
-        console.log('Credit view loaded');
-      });
+      this.render('../demo/templates/credits.html', '#container', {});
     })
 
     .onUnload(function(){
@@ -300,6 +298,12 @@
     });
 
     danilo.router.register(credits_view);
+
+    new danilo.Operation({
+      receive: ['viewLoaded /demo/credits']
+    }, function() {
+        console.log("Credits view loaded");
+    }).register();
 
   });
 

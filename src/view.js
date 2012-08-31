@@ -1,7 +1,7 @@
 "use strict";
 (function() {
 
-  define(['handlebars'], function(handlebars) {
+  define(['handlebars', 'pubsub'], function(handlebars, PubSub) {
     var View;
   
     return View = (function() {
@@ -24,18 +24,21 @@
       };
 
 
-      View.prototype.render = function(template, selector, ctx, callback) {
+      View.prototype.render = function(template, selector, ctx) {
         if (ctx == null) {
           ctx = {};
         }
+
+        var self = this;
+
         require(["text!"+template], function(template){
           var rendered_html = Handlebars.compile(template)(ctx);
           var destination = document.querySelector(selector);
           destination.innerHTML = rendered_html;
           //circular dependence..how fix this?
           require('./danilo').update();
-          // maybe use a combination of event+operation is better?
-          callback();
+          PubSub.publish("viewLoaded " + self.url , {});
+          
         });
       };
 
