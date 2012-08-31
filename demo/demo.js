@@ -287,21 +287,19 @@
 
     // The Router?
     /* Ehm,... @TODO */
-    var login_view = new danilo.View('/demo/login')
+    var credits_view = new danilo.View('/demo/credits')
     
     .onLoad(function(){
-      alert('view loaded');
-      this.render('../demo/templates/hello_again.html', 'body', {}, function(){
-        alert('Template loaded');
+      this.render('../demo/templates/credits.html', '#container', {}, function(){
+        console.log('Credit view loaded');
       });
     })
 
     .onUnload(function(){
-      alert('view unload');
+      console.log('Credit view unloaded');
     });
 
-    danilo.router.register(login_view);
-
+    danilo.router.register(credits_view);
 
   });
 
