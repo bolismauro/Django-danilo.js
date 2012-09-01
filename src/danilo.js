@@ -86,7 +86,6 @@
         
         items.forEach(function(item, k) {
           if(item.getAttribute('data-skip') !== 'true'){
-            console.log(item);
             item.onclick = function(e){
               router.goToUrl(item.href);
               e.preventDefault();
