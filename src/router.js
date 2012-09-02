@@ -16,7 +16,7 @@
                         var State = History.getState()
                           , view_to_load = views[State.hash];
 
-                        if("undefined" == typeof view_to_load){
+                        if("undefined" === typeof view_to_load){
                             // Usiamo questo pattern:
                             // undefined e null sono uguali tra loro e sono diversi da qualunque altro valore
                             // quindi confrontando con == otteniamo true se e solo se il valore è null o undefined.
