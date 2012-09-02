@@ -285,9 +285,36 @@
     // The Router
     // ----------
 
-    // The Router?
-    /* Ehm,... @TODO */
+    // We define a Credits View, which is an istance of danilo.View, passing the relative url as parameter
+    var credits_view = new danilo.View('/demo/credits')
+    
+    // We can also define an (optional) onLoad function which is called when the view is loaded.
+    // Please note that at this point the view is active but there are no change in the web page.
+    .onLoad(function(){
+      //You can use the View.render function to inject new content in your web page. The first parameter of this function is the url of
+      //your template, the second one is a selector to a DOM element in which the new content will be inserted and the third parameter is
+      //the template context. For more informations about template please visit [**HandleBar.js Website**](http://handlebarsjs.com/).
+      this.render('../demo/templates/credits.html', '#container', {});
+    })
 
+    //You can also define an (optional) unload function which is called when the view is unloaded. In this function you can, for example, remove
+    //operations.
+    .onUnload(function(){
+      console.log('Credit view unloaded');
+    });
+
+    // You have to register the view using the register method of danilo.router.
+    danilo.router.register(credits_view);
+
+    // View.render function load the template asynchronously from remote using requireJS.
+    // You may need to perform some operations when the HTML is injected and you can accomplish that with an operation.
+    // The Event is triggered in the end of View.render function and his name is prefixed by ```viewLoaded``` and 
+    // contains the view url.
+    new danilo.Operation({
+      receive: ['viewLoaded /demo/credits']
+    }, function() {
+        console.log("Credits view loaded");
+    }).register();
 
   });
 

@@ -9,68 +9,75 @@
 <body>
   <h1>Demo app</h1>
 
-  <form data-bind="try_login">
-    <p>This is a sample form. When you submit it a form/submit/try_login event will be
-    fired</p>
+  <div id="container">
+    <form data-bind="try_login">
+      <p>This is a sample form. When you submit it a form/submit/try_login event will be
+      fired</p>
 
-    <p><input type="text" value="demo" name="username" /></p>
+      <p><input type="text" value="demo" name="username" /></p>
 
-    <p><input type="submit" value="Click me!" /></p>
-  </form>
-  <hr />
+      <p><input type="submit" value="Click me!" /></p>
+    </form>
+    <hr />
 
-  <p>This is a simple button. When the page is loaded a custom event is attached</p>
+    <p>This is a simple button. When the page is loaded a custom event is attached</p>
 
-  <form>
-    <input type="button" value="Custom event button" id="custom-event-button" />
-  </form>
-  <hr />
+    <form>
+      <input type="button" value="Custom event button" id="custom-event-button" />
+    </form>
+    <hr />
 
-  <form data-bind="my_user_form">
-    <fieldset>
-      <legend>Parsing model attributes from an HTML form</legend>
+    <form data-bind="my_user_form">
+      <fieldset>
+        <legend>Parsing model attributes from an HTML form</legend>
 
-      <p><label>Username</label><input type="text" name="username" data-bind=
-      "username" /></p>
+        <p><label>Username</label><input type="text" name="username" data-bind=
+        "username" /></p>
 
-      <p><label>Password</label><input type="password" name="password" data-bind=
-      "password" /></p>
+        <p><label>Password</label><input type="password" name="password" data-bind=
+        "password" /></p>
 
-      <p><input type="submit" value="Save" /></p>
-    </fieldset>
-  </form>
+        <p><input type="submit" value="Save" /></p>
+      </fieldset>
+    </form>
+
+    <br /><br />
+    <p><a href="credits"> Credits </a> (this view will be loaded using routing mechanism)</p>
+  </div>
   
-<script type="text/javascript" src="../libs/promise.js"></script>
-<script type="text/javascript" src="../libs/pubsub.js"></script>
-<script type="text/javascript" src="../libs/require.js" data-main="demo.js"></script>
+  <script type="text/javascript" src="../libs/promise.js"></script>
+  <script type="text/javascript" src="../libs/pubsub.js"></script>
+  <script type="text/javascript" src="../libs/require.js" data-main="demo.js"></script>
 
-<script type="text/javascript">
-  // RequireJS
-  (function() {
+  <script type="text/javascript" src="../libs/history.js"></script>
 
-    require.config({
-      baseUrl: '/src/',
-      paths: {
-        danilo: "../src/danilo",
-        handlebars: "../libs/handlebars",
-        pubsub: "../libs/pubsub",
-        promise: "../libs/promise",
-        superagent: "../libs/superagent"
-      },
-      shim: {
-        handlebars: {
-          exports: 'Handlebars'
+  <script type="text/javascript">
+    // RequireJS
+    (function() {
+
+      require.config({
+        baseUrl: '/src/',
+        paths: {
+          danilo: "../src/danilo",
+          handlebars: "../libs/handlebars",
+          pubsub: "../libs/pubsub",
+          promise: "../libs/promise",
+          superagent: "../libs/superagent"
         },
-        promise: {
-          exports: 'promise'
-        },
-        superagent: {
-          exports: 'superagent'
+        shim: {
+          handlebars: {
+            exports: 'Handlebars'
+          },
+          promise: {
+            exports: 'promise'
+          },
+          superagent: {
+            exports: 'superagent'
+          }
         }
-      }
-    });
+      });
 
-  })();
-  </script>
+    })();
+    </script>
 </body>
 </html>
