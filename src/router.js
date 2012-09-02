@@ -18,7 +18,7 @@
                         
                         var view_to_load = views[State.hash];
 
-                        if(view_to_load === null){
+                        if(view_to_load === undefined){
                             console.log("[debug] view not found");
                             return;
                         }
