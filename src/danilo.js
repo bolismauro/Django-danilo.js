@@ -1,3 +1,6 @@
+/**
+ * Danilo.js - MOVE framework and router for the browser. (c) 2012 PlasticPanda.com
+ */
 "use strict";
 (function(exports) {
 
