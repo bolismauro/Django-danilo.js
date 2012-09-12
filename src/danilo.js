@@ -4,7 +4,7 @@
 "use strict";
 (function(exports) {
 
-  define(['./router', './model', './operation', './remote', './storage', './view'], function(router, Model, Operation, Remote, storage, View) {
+  define(['./router', './model', './operation', './remote', './storage', './view'], function(router, Model, Operation, remote, storage, View) {
     var render_template
       , danilo
       , dany;
