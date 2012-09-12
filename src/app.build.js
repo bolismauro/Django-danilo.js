@@ -1,7 +1,7 @@
 ({
     appDir: ".",
-    baseUrl: "src/",
-    dir: "build/",
+    baseUrl: "./",
+    dir: "../build/",
     modules: [
         {
             name: "danilo"
