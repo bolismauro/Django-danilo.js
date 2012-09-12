@@ -2,12 +2,12 @@
 (function() {
 
   define(['promise', 'superagent'], function(promise, request_is_not_requirejs_compatible) {
-    var Remote;
-    return Remote = (function() {
+    var remote;
+    return remote = (function() {
 
-      var Remote = {};
+      var remote = {};
 
-      Remote.get = function(Model, _id) {
+      remote.get = function(Model, _id) {
         var p;
         p = new promise.Promise();
         request.get(Model.prototype.url + _id || '').end(function(res) {
@@ -23,7 +23,7 @@
         return p;
       };
 
-      Remote.save = function(obj, _id) {
+      remote.save = function(obj, _id) {
         
         console.log("****BUG in remote.js***** obj.attrs is deprecated");
         
@@ -52,7 +52,7 @@
         return p;
       };
 
-      Remote.del = function(obj, _id) {
+      remote.del = function(obj, _id) {
         var p;
         p = new promise.Promise();
         if (!_id && obj.get('_id')) {
@@ -67,7 +67,7 @@
         });
       };
 
-      return Remote;
+      return remote;
 
     })();
   });

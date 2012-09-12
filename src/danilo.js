@@ -122,7 +122,7 @@
       Model: Model,
       Operation: Operation,
       storage: storage,
-      Remote: Remote,
+      remote: remote,
       View: View
     };
 
