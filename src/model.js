@@ -35,7 +35,7 @@
       };
       
 
-      Model.extends = function(params){
+      Model.extends = function(modelName, params){
       
         var newModel = function() {
           return newModel.__super__.constructor.apply(this, arguments);
@@ -45,6 +45,8 @@
         for(var name in params){
           newModel.prototype[name] = params[name];
         }
+
+        newModel.prototype['modelName'] = modelName;
 
         return newModel;
       }
@@ -58,13 +60,19 @@
         attributes = Array.prototype.slice.apply(attributes); // Convert NodeList to Array
         
         if (sync_validate === true) {
+          var global_validation_result = true;
           // Perform a dry-run before changing the model instance
           attributes.forEach(function (attr, i) {
             validation_result = that.set(attr.getAttribute('data-bind'), attr.value, true); // true=dry_run
+            
             if (validation_result === false) {
-              return false;
+              global_validation_result = false;
             }
-          });    
+          });
+
+          if (global_validation_result === false) {
+            return false;
+          }
         }
         
         // We should use .update(), but we need a dictionary instead of the attributes Array
@@ -95,8 +103,10 @@
         }
 
         if (this.autoValidate === true) {
-          validationResult = this.validate(attribute, value)
 
+
+          validationResult = this.validate(attribute, value)
+          
           if (validationResult && dry_run === false) {
             this.attributeValues[attribute] = value;
           }
@@ -138,14 +148,7 @@
       };
 
       getObjectClass = function(obj) {
-        var arr;
-        if (obj && obj.constructor && obj.constructor.toString) {
-          arr = obj.constructor.toString().match(/function\s*(\w+)/);
-          if (arr && arr.length === 2) {
-            return arr[1];
-          }
-        }
-        return "undefined";
+        return obj.modelName;
       };
 
       return Model;

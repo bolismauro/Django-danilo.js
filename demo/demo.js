@@ -32,7 +32,7 @@
     User = (function() {
 
       // We define a User class, which extends danilo.Model, using extends function 
-      var User = danilo.Model.extends({
+      var User = danilo.Model.extends('User', {
         // The url for remote CRUD operations. Can be an absolute url, but keep in mind the *same origin policy*.
         url : '/user/',
         // This tells Danilo.js to autovalidate each attribute as soon as you call the setter.
@@ -207,7 +207,7 @@
     }, function(data) {
       // The handler function's first parameter is an object containing 
       // the name of the attribute and the name of the validator that failed.
-      console.log("Validation Error: the attribute " + data.attribute + " violates the validator " + data.validationName + ".");
+      console.log("User Validation Error: the attribute " + data.attribute + " violates the validator " + data.validationName + " instance ",data.modelInstance);
     }).register();
 
     // Here the username does not start with an uppercase letter, 
@@ -259,10 +259,16 @@
 
     // Remember that **everything is asynchronous**.
     s.set('weather', 'sunny');
+
     setTimeout(function(){
+      console.log("bring vale "+s.get('bring sunglasses'));
       console.log('Weather is '+s.get('weather')+' then I '+((s.get('bring sunglasses')?'should':'should not'))+' bring sunglasses');
     },0);
-    s.set('weather', 'cloudy');
+
+    
+    setTimeout(function(){
+      s.set('weather', 'cloudy');
+    }, 1000);
 
 
     // ### b) Reactive operation bound to a model attribute ###

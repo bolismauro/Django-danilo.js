@@ -4,7 +4,7 @@
 "use strict";
 (function(exports) {
 
-  define(['./router', './model', './operation', './remote', './storage', './view'], function(router, Model, Operation, remote, storage, View) {
+  define(['pubsub', './router', './model', './operation', './remote', './storage', './view'], function(PubSub, router, Model, Operation, remote, storage, View) {
     var render_template
       , danilo
       , dany;
@@ -38,7 +38,7 @@
               }
             }
           });
-          
+
           PubSub.publish("submit " + form_tag.getAttribute('data-bind'), {
             form: form_tag,
             attrs: attrs
