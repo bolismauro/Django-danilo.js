@@ -161,6 +161,7 @@
 	if (typeof define === 'function' && define.amd) {
 		//AMD module
 		define('pubsub', init);
+		window.pubsub = init;
 	} else if (typeof module === 'object' && module.exports) {
 		//CommonJS module
 		module.exports = init();

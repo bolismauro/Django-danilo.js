@@ -6,6 +6,6 @@ require('http').createServer(function (request, response) {
     request.addListener('end', function () {
         file.serve(request, response);
     });
-}).listen(8001);
+}).listen(process.env.PORT || 8000);
 
-console.log('Listening on port 8000');
+console.log('Listening on port', process.env.PORT||8000);
