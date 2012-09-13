@@ -1,61 +1,64 @@
 "use strict";
 (function() {
 
-  define(['promise', 'superagent'], function(Promise, request_is_not_requirejs_compatible) {
-    var Remote;
-    return Remote = (function() {
+  define(['promise', 'superagent'], function(promise, request_is_not_requirejs_compatible) {
+    var remote;
+    return remote = (function() {
 
-      function Remote() {}
+      var remote = {};
 
-      Remote.prototype.get = function(Model, _id) {
+      remote.get = function(Model, _id) {
         var p;
         p = new promise.Promise();
-        request.get(Model.url + _id || '').end(function(res) {
+        request.get(Model.prototype.url + _id || '').end(function(res) {
           var obj;
           if (res.ok) {
             obj = new Model();
-            Model.update(JSON.parse(res.body));
+            obj.update(JSON.parse(res.body));
             return p.done(null, obj);
           } else {
-            return p.done('API Error', 'API Request Error');
+            return p.done('API Error', res.body);
           }
         });
         return p;
       };
 
-      Remote.prototype.save = function(obj, _id) {
+      remote.save = function(obj, _id) {
+        
+        console.log("****BUG in remote.js***** obj.attrs is deprecated");
+        
         var p;
         p = new promise.Promise();
-        if (!_id && obj.attrs._id) {
-          _id = obj.attrs._id;
+        if (!_id && obj.get('_id')) {
+          _id = obj.get('_id');
         }
         if (_id) {
-          request.put(obj.url + _id || '').send(obj.attrs).end(function(res) {
-            if (res.ok) {
-              return p.done(null, 'Created');
-            } else {
-              return p.done('Save Error', res.body);
-            }
-          });
-        } else {
-          request.post(obj.url).send(obj.attrs).end(function(res) {
+          request.put(obj.prototype.url + _id || '').send(obj.attrs).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Updated');
             } else {
               return p.done('Save Error', res.body);
             }
           });
+        } else {
+          request.post(obj.prototype.url).send(obj.attrs).end(function(res) {
+            if (res.ok) {
+              return p.done(null, 'Created');
+            } else {
+              return p.done('Save Error', res.body);
+            }
+          });
         }
         return p;
       };
 
-      Remote.prototype.del = function(obj, _id) {
+      remote.del = function(obj, _id) {
         var p;
         p = new promise.Promise();
-        if (!_id && obj.attrs._id) {
-          _id = obj.attrs._id;
+        if (!_id && obj.get('_id')) {
+          _id = obj.get('_id');
         }
-        return request.del(obj.url + _id || '').end(function(res) {
+        return request.del(obj.prototype.url + _id || '').end(function(res) {
           if (res.ok) {
             return p.done(null, 'Deleted');
           } else {
@@ -64,7 +67,7 @@
         });
       };
 
-      return Remote;
+      return remote;
 
     })();
   });

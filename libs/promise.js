@@ -1,9 +1,3 @@
-/*
- *  Copyright 2012 (c) Pierre Duquesne <stackp@online.fr>
- *  Licensed under the New BSD License.
- *  https://github.com/stackp/promisejs
- */
-
 (function(exports) {
 
     function bind(func, context) {

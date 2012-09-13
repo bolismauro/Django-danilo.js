@@ -1,7 +1,10 @@
+/**
+ * Danilo.js - MOVE framework and router for the browser. (c) 2012 PlasticPanda.com
+ */
 "use strict";
 (function(exports) {
 
-  define(['./router', './model', './operation', './remote', './storage', './view'], function(router, Model, Operation, Remote, storage, View) {
+  define(['./router', './model', './operation', './remote', './storage', './view'], function(router, Model, Operation, remote, storage, View) {
     var render_template
       , danilo
       , dany;
@@ -119,7 +122,7 @@
       Model: Model,
       Operation: Operation,
       storage: storage,
-      Remote: Remote,
+      remote: remote,
       View: View
     };
 
