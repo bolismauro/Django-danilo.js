@@ -10,7 +10,7 @@
 
 
 
-      var getObjectClass;
+      var _getObjectClass;
 
       function Model(values) {
         var that = this;
@@ -117,7 +117,7 @@
         }
 
         if (this.attrs[attribute].reactive === true && dry_run === false) {
-          storage._reactive_publish(getObjectClass(this)+'.'+attribute, value, this);
+          storage._reactive_publish(_getObjectClass(this)+'.'+attribute, value, this);
         }
 
         return validationResult;
@@ -134,7 +134,7 @@
         for (validationName in _ref) {
           validationParam = _ref[validationName];
           if (!Validation.validate(validationName, validationParam, attributeValue)) {
-            modelName = getObjectClass(this);
+            modelName = _getObjectClass(this);
             PubSub.publish("validationError " + modelName, {
               modelName: modelName,
               modelInstance: this,
@@ -147,7 +147,10 @@
         return true;
       };
 
-      getObjectClass = function(obj) {
+
+
+
+      _getObjectClass = function(obj) {
         return obj.modelName;
       };
 
