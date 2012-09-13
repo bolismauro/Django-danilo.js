@@ -26,6 +26,7 @@
       remote.save = function(obj, _id) {
         
         console.log("****BUG in remote.js***** obj.attrs is deprecated");
+        console.log("**** USE obj.toObject ****");
         
         var p;
         p = new promise.Promise();

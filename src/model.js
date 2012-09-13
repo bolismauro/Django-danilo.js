@@ -148,7 +148,13 @@
       };
 
 
-
+      Model.prototype.toObject = function(){
+        var instance_dict = {};
+        for (var v in this.attributeValues){
+          instance_dict[v] = this.attributeValues[v];
+        }
+        return instance_dict;
+      }
 
       _getObjectClass = function(obj) {
         return obj.modelName;
