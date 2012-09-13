@@ -42,6 +42,7 @@
 			 *		{total: 10, min: 1, max: 3}
 			 * );
 			 */
+			 
 			publish: function () {
 				//help minification
 				var args = arguments,
