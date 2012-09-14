@@ -1,4 +1,5 @@
 ({
+    optimize: "none",
     appDir: ".",
     baseUrl: "./",
     dir: "../build/",

@@ -36,6 +36,11 @@
       
 
       Model.extends = function(modelName, params){
+        // @TODO: modelName should be avoided/optional
+        /*if ('undefined' === typeof params) {
+          params = modelName;
+          modelName = 'Unnamed Model';
+        }*/
       
         var newModel = function() {
           return newModel.__super__.constructor.apply(this, arguments);

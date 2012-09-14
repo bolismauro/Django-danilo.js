@@ -23,17 +23,14 @@
         return p;
       };
 
-      remote.save = function(obj, _id) {
-        
-        console.log("****BUG in remote.js***** obj.attrs is deprecated");
-        
+      remote.save = function(obj, _id) {        
         var p;
         p = new promise.Promise();
         if (!_id && obj.get('_id')) {
           _id = obj.get('_id');
         }
         if (_id) {
-          request.put(obj.prototype.url + _id || '').send(obj.attrs).end(function(res) {
+          request.put(obj.prototype.url + _id || '').send(obj.attributeValues).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Updated');
             } else {
@@ -41,7 +38,7 @@
             }
           });
         } else {
-          request.post(obj.prototype.url).send(obj.attrs).end(function(res) {
+          request.post(obj.prototype.url).send(obj.attributeValues).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Created');
             } else {

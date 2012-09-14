@@ -12,7 +12,7 @@
             router = {}
             router.init = function(name) {
                 if (typeof History !== "undefined" && History.enabled) {
-                    History.Adapter.bind(window,'statechange',function(){ 
+                    var statechange_handler = function(){ 
                         var State = History.getState()
                           , view_to_load = views[State.hash];
 
@@ -33,7 +33,10 @@
                             currentView = view_to_load;
                             view_to_load.load();
                         }
-                    });
+                    };
+                    
+                    History.Adapter.bind(window,'statechange', statechange_handler);
+                    window.addEventListener('load', statechange_handler);
                 } else {
                     console.log("Danilo.js Routing is not supported by this browser");
                     return;
