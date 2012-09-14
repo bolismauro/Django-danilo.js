@@ -10,7 +10,7 @@
 
 
 
-      var getObjectClass;
+      var _getObjectClass;
 
       function Model(values) {
         var that = this;
@@ -122,7 +122,7 @@
         }
 
         if (this.attrs[attribute].reactive === true && dry_run === false) {
-          storage._reactive_publish(getObjectClass(this)+'.'+attribute, value, this);
+          storage._reactive_publish(_getObjectClass(this)+'.'+attribute, value, this);
         }
 
         return validationResult;
@@ -139,7 +139,7 @@
         for (validationName in _ref) {
           validationParam = _ref[validationName];
           if (!Validation.validate(validationName, validationParam, attributeValue)) {
-            modelName = getObjectClass(this);
+            modelName = _getObjectClass(this);
             PubSub.publish("validationError " + modelName, {
               modelName: modelName,
               modelInstance: this,
@@ -152,7 +152,16 @@
         return true;
       };
 
-      getObjectClass = function(obj) {
+
+      Model.prototype.toObject = function(){
+        var instance_dict = {};
+        for (var v in this.attributeValues){
+          instance_dict[v] = this.attributeValues[v];
+        }
+        return instance_dict;
+      }
+
+      _getObjectClass = function(obj) {
         return obj.modelName;
       };
 

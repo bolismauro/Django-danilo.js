@@ -23,14 +23,14 @@
         return p;
       };
 
-      remote.save = function(obj, _id) {        
+      remote.save = function(obj, _id) {
         var p;
         p = new promise.Promise();
         if (!_id && obj.get('_id')) {
           _id = obj.get('_id');
         }
         if (_id) {
-          request.put(obj.prototype.url + _id || '').send(obj.attributeValues).end(function(res) {
+          request.put(obj.prototype.url + _id || '').send(obj.toObject()).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Updated');
             } else {
@@ -38,7 +38,7 @@
             }
           });
         } else {
-          request.post(obj.prototype.url).send(obj.attributeValues).end(function(res) {
+          request.post(obj.prototype.url).send(obj.toObject()).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Created');
             } else {
@@ -63,6 +63,32 @@
           }
         });
       };
+
+
+      remote.getAll = function(Model) {
+        var p;
+        p = new promise.Promise();
+        request.get(Model.prototype.url).end(function(res) {
+          var objs = [];
+          if (res.ok) {
+            
+            var items = res.body;
+
+            for (var i in items){
+              var item = items[i];
+              var obj = new Model();
+              obj.update(item);
+              objs.push(obj)
+            }
+
+            return p.done(null, objs);
+
+          } else {
+            return p.done('API Error', res.body);
+          }
+        });
+        return p;        
+      }
 
       return remote;
 
