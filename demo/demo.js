@@ -81,7 +81,6 @@
       return User;
     })();
 
-
     // ### Model usage example ###
 
     // Create a new User with "Pippo" as username.

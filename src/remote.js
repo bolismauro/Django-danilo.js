@@ -68,6 +68,32 @@
         });
       };
 
+
+      remote.getAll = function(Model) {
+        var p;
+        p = new promise.Promise();
+        request.get(Model.prototype.url).end(function(res) {
+          var objs = [];
+          if (res.ok) {
+            
+            var items = res.body;
+
+            for (var i in items){
+              var item = items[i];
+              var obj = new Model();
+              obj.update(item);
+              objs.push(obj)
+            }
+
+            return p.done(null, objs);
+
+          } else {
+            return p.done('API Error', res.body);
+          }
+        });
+        return p;        
+      }
+
       return remote;
 
     })();
