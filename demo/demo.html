@@ -62,7 +62,8 @@
           handlebars: "../libs/handlebars",
           pubsub: "../libs/pubsub",
           promise: "../libs/promise",
-          superagent: "../libs/superagent"
+          superagent: "../libs/superagent",
+          gowiththeflow: "../libs/gowiththeflow"
         },
         shim: {
           handlebars: {
@@ -70,6 +71,9 @@
           },
           promise: {
             exports: 'promise'
+          },
+          gowiththeflow: {
+            exports: 'Flow'
           },
           superagent: {
             exports: 'superagent'

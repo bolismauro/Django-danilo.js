@@ -14,10 +14,10 @@
           var obj;
           if (res.ok) {
             obj = new Model();
-            obj.update(JSON.parse(res.body));
+            obj.update(JSON.parse(res.text));
             return p.done(null, obj);
           } else {
-            return p.done('API Error', res.body);
+            return p.done('API Error', res.text);
           }
         });
         return p;
@@ -30,7 +30,7 @@
           _id = obj.get('_id');
         }
         if (_id) {
-          request.put(obj.prototype.url + _id || '').send(obj.toObject()).end(function(res) {
+          request.put(obj.url + _id || '').send(obj.toObject()).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Updated');
             } else {
@@ -38,7 +38,7 @@
             }
           });
         } else {
-          request.post(obj.prototype.url).send(obj.toObject()).end(function(res) {
+          request.post(obj.url).send(obj.toObject()).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Created');
             } else {
@@ -55,7 +55,7 @@
         if (!_id && obj.get('_id')) {
           _id = obj.get('_id');
         }
-        return request.del(obj.prototype.url + _id || '').end(function(res) {
+        return request.del(obj.url + _id || '').end(function(res) {
           if (res.ok) {
             return p.done(null, 'Deleted');
           } else {
@@ -72,7 +72,7 @@
           var objs = [];
           if (res.ok) {
             
-            var items = res.body;
+            var items = JSON.parse(res.text);
 
             for (var i in items){
               var item = items[i];
@@ -84,7 +84,7 @@
             return p.done(null, objs);
 
           } else {
-            return p.done('API Error', res.body);
+            return p.done('API Error', res.text);
           }
         });
         return p;        

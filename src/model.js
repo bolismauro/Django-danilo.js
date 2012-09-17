@@ -1,7 +1,7 @@
 "use strict";
 (function() {
 
-  define(['./storage', 'pubsub', 'promise', 'validation'], function(storage, PubSub, Promise, Validation) {
+  define(['./storage', 'pubsub', 'promise', 'gowiththeflow', 'validation'], function(storage, PubSub, promise, Flow, Validation) {
     var Model;
     return Model = (function() {
 
@@ -88,6 +88,55 @@
         return true;
       }
 
+      Model.prototype.expandRelations = function() {        
+        var rel
+          , p = new promise.Promise()
+          , f = Flow()
+          , that = this;
+        
+        if (typeof this.relations !== "undefined") {
+          for (var relationName in this.relations) {               // TODO: Riscrivere con forEach
+            rel = this.relations[relationName];
+            
+            that.set(relationName, []);
+            
+            f = f.par(function(next){
+              var relationKeyValue = that.get(rel.key);
+              if (typeof relationKeyValue !== "undefined") {    // TODO: relatedField setting
+                
+                if (Array.isArray(relationKeyValue)) {
+                  for (var j in relationKeyValue) {
+                    var foreignKey = relationKeyValue[j];
+                    
+                    danilo.remote.get(rel.model, foreignKey).then(function(err, val){
+                      if (err) {
+                        console.warn('Error (non-fatal) while expanding relation:', err);
+                        next(err);
+                      } else {
+                        that.set(relationName, that.get(relationName).push(val));  // FIXME: TODO:
+                        next();
+                      }
+                    });
+                    
+                  }
+                }
+                
+              }            
+              
+            });
+          }
+          
+          f.seq(function(next, err, res){
+            console.log('Completed. Err?:', err);
+            p.done(err, res);
+          });
+          
+        }
+        
+        return p;
+        
+      }
+
       Model.prototype.update = function(attrs) {
         var that = this;
         
@@ -120,9 +169,13 @@
             this.attributeValues[attribute] = value;
           }
         }
-
-        if (this.attrs[attribute].reactive === true && dry_run === false) {
-          storage._reactive_publish(_getObjectClass(this)+'.'+attribute, value, this);
+        
+        // TODO: Salcazzo A o B?
+        // campi custom?
+        if ("undefined" !== typeof this.attrs[attribute]) {
+          if (this.attrs[attribute].reactive === true && dry_run === false) {
+            storage._reactive_publish(_getObjectClass(this)+'.'+attribute, value, this);
+          }
         }
 
         return validationResult;

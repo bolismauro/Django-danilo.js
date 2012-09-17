@@ -26,6 +26,47 @@
     danilo.init();
 
 
+      
+      // Definizione modelli
+      var Fornitore = danilo.Model.extends('Fornitore', {
+        url: 'http://localhost:8000/api/fornitore/',
+        attrs: {
+          nome: 'Sconosciuto',
+        }
+      })
+      
+      
+      var Prodotto = danilo.Model.extends('Prodotto', {
+        url: 'http://localhost:8000/api/prodotto/',
+        attrs: {
+          nome: 'Senza nome',
+        },
+        relations: {
+          fornitore: {
+           model: Fornitore,
+           key: 'fornitore.pk',
+           lazy: false,
+          }
+        }
+      });
+      
+      
+      danilo.remote.get(Prodotto, 1).then(function(err, p){
+        
+        console.log(p);
+        
+        p.expandRelations().then(function(err, res){
+          console.log('ooo',p.toObject());
+        });
+        
+      });
+      
+
+
+      return; ///////////////
+
+
+
     // Defining Models
     // ---------------
 
