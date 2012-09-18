@@ -8,9 +8,16 @@
       var remote = {};
 
       remote.get = function(Model, _id) {
-        var p;
-        p = new promise.Promise();
-        request.get(Model.prototype.url + _id || '').end(function(res) {
+        var p = new promise.Promise()
+          , req;
+        
+        if (typeof _id !== "string" && typeof _id !== "number") {
+          req = request.get(Model.prototype.url).send(_id);
+        } else {     
+          req = request.get(Model.prototype.url + _id || '');
+        }
+        
+        req.end(function(res) {
           var obj;
           if (res.ok) {
             obj = new Model();
@@ -19,7 +26,8 @@
           } else {
             return p.done('API Error', res.text);
           }
-        });
+        });        
+        
         return p;
       };
 

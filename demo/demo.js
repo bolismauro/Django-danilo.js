@@ -56,7 +56,7 @@
         console.log(p);
         
         p.expandRelations().then(function(err, res){
-          console.log('ooo',p.toObject());
+          console.log('Prodotto with expanded relation: ',p.toObject());
         });
         
       });

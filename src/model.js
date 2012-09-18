@@ -1,7 +1,7 @@
 "use strict";
 (function() {
 
-  define(['./storage', 'pubsub', 'promise', 'gowiththeflow', 'validation'], function(storage, PubSub, promise, Flow, Validation) {
+  define(['./storage', 'pubsub', 'promise', 'Flow', 'validation'], function(storage, PubSub, promise, Flow, Validation) {
     var Model;
     return Model = (function() {
 
@@ -98,7 +98,7 @@
           for (var relationName in this.relations) {               // TODO: Riscrivere con forEach
             rel = this.relations[relationName];
             
-            that.set(relationName, []);
+            var relationArray = [];
             
             f = f.par(function(next){
               var relationKeyValue = that.get(rel.key);
@@ -113,21 +113,20 @@
                         console.warn('Error (non-fatal) while expanding relation:', err);
                         next(err);
                       } else {
-                        that.set(relationName, that.get(relationName).push(val));  // FIXME: TODO:
+                        relationArray.push(val);
+                        that.set(relationName, relationArray);
                         next();
                       }
+                      
                     });
                     
                   }
                 }
-                
               }            
-              
             });
           }
           
           f.seq(function(next, err, res){
-            console.log('Completed. Err?:', err);
             p.done(err, res);
           });
           
