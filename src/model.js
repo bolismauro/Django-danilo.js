@@ -169,8 +169,6 @@
           }
         }
         
-        // TODO: Salcazzo A o B?
-        // campi custom?
         if ("undefined" !== typeof this.attrs[attribute]) {
           if (this.attrs[attribute].reactive === true && dry_run === false) {
             storage._reactive_publish(_getObjectClass(this)+'.'+attribute, value, this);
