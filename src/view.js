@@ -12,6 +12,11 @@
         View.prototype.load = function(){};
         View.prototype.unload = function(){};
       }
+      
+      View.prototype.setup = function(viewObj) {
+        this.onLoad(viewObj.load).onUnload(viewObj.unload);
+        return this;
+      }
 
       View.prototype.onLoad = function(callback) {
         this.load = callback;
