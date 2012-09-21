@@ -21,7 +21,20 @@
           var obj;
           if (res.ok) {
             obj = new Model();
-            obj.update(JSON.parse(res.text));
+            var obj_dict = JSON.parse(res.text);
+            obj.update(obj_dict);
+
+            // trovo id degli oggetti nelle relazioni
+            /*if (typeof Model.prototype.relations !== "undefined") {
+              for(var relationName in Model.prototype.relations){
+                  var ids_list = []
+                  obj_dict[relationName].each(function(api_endPoint, index){
+                    console.log(api_endPoint);
+                  });
+
+              }
+            }*/
+
             return p.done(null, obj);
           } else {
             return p.done('API Error', res.text);

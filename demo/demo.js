@@ -321,11 +321,8 @@
         console.log("Credits view loaded");
     }).register();
 
-
-
-
   Fornitore = window.Fornitore = danilo.Model.extends('Fornitore', {
-    url : 'http://localhost:8000/api/fornitore/',
+    url : 'http://localhost:8000/api/prodotto/',
     attrs : {
       nome : {
         defaultValue : 'Senza nome'
@@ -360,14 +357,16 @@
       },
       giacenza_online: {
         defaultValue : 1
-      },
+      }
     },
     //relazioni
     relations: {
       fornitori: {
        model: Fornitore,
+       lazy: false,
        key: 'fornitore.pk'
-     }    
+     }
+    }    
   });
 
 
