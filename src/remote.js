@@ -14,7 +14,7 @@
         if (typeof _id !== "string" && typeof _id !== "number") {
           req = request.get(Model.prototype.url).send(_id);
         } else {     
-          req = request.get(Model.prototype.url + _id || '');
+          req = request.get(Model.prototype.url + (_id || '') + '/' );
         }
         
         req.end(function(res) {
@@ -34,11 +34,11 @@
       remote.save = function(obj, _id) {
         var p;
         p = new promise.Promise();
-        if (!_id && obj.get('_id')) {
-          _id = obj.get('_id');
+        if (!_id && obj.get('id')) {
+          _id = obj.get('id');
         }
         if (_id) {
-          request.put(obj.url + _id || '').send(obj.toObject()).end(function(res) {
+          request.put(obj.url + (_id || '') + '/').send(obj.toObject()).end(function(res) {
             if (res.ok) {
               return p.done(null, 'Updated');
             } else {
@@ -48,6 +48,7 @@
         } else {
           request.post(obj.url).send(obj.toObject()).end(function(res) {
             if (res.ok) {
+              obj.set('id', res.body.id);
               return p.done(null, 'Created');
             } else {
               return p.done('Save Error', res.body);
@@ -60,10 +61,10 @@
       remote.del = function(obj, _id) {
         var p;
         p = new promise.Promise();
-        if (!_id && obj.get('_id')) {
-          _id = obj.get('_id');
+        if (!_id && obj.get('id')) {
+          _id = obj.get('id');
         }
-        return request.del(obj.url + _id || '').end(function(res) {
+        return request.del(obj.url + (_id || '') + '/').end(function(res) {
           if (res.ok) {
             return p.done(null, 'Deleted');
           } else {

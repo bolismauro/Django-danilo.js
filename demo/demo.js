@@ -26,47 +26,6 @@
     danilo.init();
 
 
-      
-      // Definizione modelli
-      var Fornitore = danilo.Model.extends('Fornitore', {
-        url: 'http://localhost:8000/api/fornitore/',
-        attrs: {
-          nome: 'Sconosciuto',
-        }
-      })
-      
-      
-      var Prodotto = danilo.Model.extends('Prodotto', {
-        url: 'http://localhost:8000/api/prodotto/',
-        attrs: {
-          nome: 'Senza nome',
-        },
-        relations: {
-          fornitore: {
-           model: Fornitore,
-           key: 'fornitore.pk',
-           lazy: false,
-          }
-        }
-      });
-      
-      
-      danilo.remote.get(Prodotto, 1).then(function(err, p){
-        
-        console.log(p);
-        
-        p.expandRelations().then(function(err, res){
-          console.log('Prodotto with expanded relation: ',p.toObject());
-        });
-        
-      });
-      
-
-
-      return; ///////////////
-
-
-
     // Defining Models
     // ---------------
 
@@ -361,6 +320,57 @@
     }, function() {
         console.log("Credits view loaded");
     }).register();
+
+
+
+
+  Fornitore = window.Fornitore = danilo.Model.extends('Fornitore', {
+    url : 'http://localhost:8000/api/fornitore/',
+    attrs : {
+      nome : {
+        defaultValue : 'Senza nome'
+      }
+    }
+  })
+
+  Prodotto = window.Prodotto = danilo.Model.extends('Prodotto', {
+    url: 'http://localhost:8000/api/prodotto/',
+    //attributi
+    attrs: {
+      nome: {
+        defaultValue : 'Senza nome'
+      },
+      codice: {
+        defaultValue : 'Senza codice'
+      },
+      barcode: {
+        defaultValue : 'barcode'
+      },
+      descrizione: {
+        defaultValue : 'Descrizione'
+      },
+      marca: {
+        defaultValue : 'Senza marca'
+      },
+      prezzo: {
+        defaultValue : 1
+      },
+      giacenza_totale: {
+        defaultValue : 1
+      },
+      giacenza_online: {
+        defaultValue : 1
+      },
+    },
+    //relazioni
+    relations: {
+      fornitori: {
+       model: Fornitore,
+       key: 'fornitore.pk'
+     }    
+  });
+
+
 
   });
 
